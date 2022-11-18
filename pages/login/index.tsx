@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+
+// The login page captures the user's email and password and will be send to the backend in future sprints
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   return (
-    <div className="text-center items-center bg-black/40 mt-24 mb-24 ml-12 mr-12 pb-10 rounded-2xl">
+    <div className="text-center items-center bg-gray-700/40 mt-24 mb-24 ml-12 mr-12 pb-10 rounded-2xl">
       <div className="text-6xl max-sm:text-4xl relative max-sm:-top-24 max-lg:-top-24 -top-28 font-light">
         emotion<span className="font-bold">AL</span>
       </div>
@@ -16,10 +17,10 @@ export default function Login() {
       <h1 className="text-4xl font-extralight relative -top-8">Login</h1>
       <div className="pb-5 grid place-items-center">
         <label
-          className="mr-44 text-xs max-sm:text-center max-sm:mr-0"
+          className="text-xs max-sm:text-center max-sm:mr-0"
           htmlFor="first"
         >
-          E-Mail{" "}
+          E-Mail
         </label>
         <div className="relative">
           <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
@@ -41,7 +42,7 @@ export default function Login() {
             onChange={(e) => setEmail(e.target.value)}
             value={email}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-blue-500 focus:border-blue-500 block w-64 max-sm:w-32 pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="name@provider.com"
+            placeholder="max.mustermann@emotional.de"
           />
         </div>
       </div>
@@ -76,7 +77,7 @@ export default function Login() {
           />
         </div>
       </div>
-      <button className="py-2 px-4 pl-2 pr-2 w-32 text-sm transition font-light duration-500 hover:scale-125 bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 justify-center rounded-full">
+      <button className="py-2 px-4 pl-2 pr-2 w-32 text-sm transition font-light duration-500 hover:scale-125 bg-gradient-to-br from-gray-400 to-violet-900 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 justify-center rounded-full">
         Einloggen
       </button>
     </div>

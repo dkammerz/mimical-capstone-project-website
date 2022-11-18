@@ -5,11 +5,13 @@ import facebook from "../../public/facebook.svg";
 import instagram from "../../public/instagram.svg";
 import linkedin from "../../public/linkedin.svg";
 
+// Usual footer as learned in previous lessons
+
 const footer = () => {
   return (
-    <div className="grid place-items-end fixed bottom-0 right-0 min-h-screen">
+    <div className="grid justify-items-end mt-10">
       <div className="flex mb-5 mr-5">
-        <Link href="https://www.facebook.com/DiedreiFragezeichen">
+        <Link href="https://www.facebook.com/">
           <button>
             <Image
               className="mx-2"
@@ -21,7 +23,7 @@ const footer = () => {
           </button>
         </Link>
 
-        <Link href="https://www.instagram.com/drayz01/?hl=de">
+        <Link href="https://www.instagram.com/">
           <button>
             <Image
               className="mx-2"
@@ -33,7 +35,7 @@ const footer = () => {
           </button>
         </Link>
 
-        <Link href="https://www.linkedin.com/in/bernd-irlenbusch-7a6943113?miniProfileUrn=urn%3Ali%3Afs_miniProfile%3AACoAABxv-K4B8ys1RmBeHFv2gPD6vKcbgRlxwC8&lipi=urn%3Ali%3Apage%3Ad_flagship3_search_srp_all%3BGFBBPrxURHu9Sn2%2F%2FNmB6Q%3D%3D">
+        <Link href="https://www.linkedin.com/">
           <button>
             <Image
               className="mx-2"

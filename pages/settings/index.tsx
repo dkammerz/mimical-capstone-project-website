@@ -1,9 +1,9 @@
-import React from "react";
-
-const index = () => {
+export default function Home() {
   return (
-    <div className="text-7xl font-extralight h-96 text-left">Einstellungen</div>
+    <div>
+      <h1 className="grid justify-items-center text-xl font-bold">
+        Einstellungen
+      </h1>
+    </div>
   );
-};
-
-export default index;
+}

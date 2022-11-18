@@ -11,7 +11,9 @@ const Layout = ({
   children,
   title = "TypeScript Next.js Stripe Example",
 }: Props) => (
-  <div>
+  <div className="flexbox">
+    {" "}
+    {/* for sticky navbar and footer */}
     <Navbar />
     {children}
     <Footer />

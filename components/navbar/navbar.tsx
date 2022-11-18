@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { useRouter } from "next/router";
 import Link from "next/link";
-import Image from "next/image";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
-import placeholderLogo from "../../public/placeholder-logo.png";
+
+// Usual navbar as learned in previous lessons
+// For CSS usualy I use TailwindCSS
+// The navbar is split into desktop and mobile view
 
 const navbar = () => {
   const [nav, setNav] = useState(false);
@@ -14,31 +15,25 @@ const navbar = () => {
 
   return (
     <div
-      style={{ backgroundColor: "#060620" }}
-      className="fixedleft-0 top-0 w-full z-10 ease-in duration-300"
+      style={{ backgroundColor: "#060621" }}
+      className="fixedleft-0 top-0 w-full z-10 grid justify-items-center ease-in duration-300"
     >
       {/* Desktop View */}
-      <div className="hidden lg:flex max-w-[1240px] m-auto justify-between items-center p-4 text-white">
+      <div className="hidden lg:flex max-w-[1240px] justify-between items-center p-4 text-white">
         <Link href="/login">
           {" "}
-          <h1 className="text-2xl pt-3 transtion font-light duration-500 hover:scale-125 flex justify-center">
-            <Image
-              className="mr-3 -mt-3"
-              src={placeholderLogo}
-              alt="yooy"
-              width={40}
-            />{" "}
+          <h1 className="text-2xl pt-3 transtion mr-44 font-light duration-500 hover:scale-125 flex justify-center">
             emotion
             <span className="font-bold">AL</span>
             <span className="text-xs mt-3 ml-2"> Dashboard</span>{" "}
           </h1>{" "}
         </Link>
 
-        <ul className="hidden sm:flex">
+        <ul className="hidden sm:flex justify-items-center">
           <li className="pt-4 px-2">
             <Link
               href="/"
-              className="pl-2 pr-2 text-sm transition font-light duration-500 hover:scale-125 from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex justify-center rounded-full"
+              className="pl-2 pr-2 text-sm transition font-light duration-500 hover:scale-125 from-gray-400 to-violet-900 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex justify-center rounded-full"
             >
               {" "}
               Übersicht{" "}
@@ -47,7 +42,7 @@ const navbar = () => {
           <li className="pt-4 px-2">
             <Link
               href="/patients"
-              className="pl-2 pr-2 text-sm transition font-light duration-500 hover:scale-125 from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex justify-center rounded-full"
+              className="pl-2 pr-2 text-sm transition font-light duration-500 hover:scale-125 from-gray-400 to-violet-900 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex justify-center rounded-full"
             >
               {" "}
               Patienten{" "}
@@ -56,7 +51,7 @@ const navbar = () => {
           <li className="pt-4 px-2">
             <Link
               href="/settings"
-              className="pl-2 pr-2 text-sm transition font-light duration-500 hover:scale-125 from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex justify-center rounded-full"
+              className="pl-2 pr-2 text-sm transition font-light duration-500 hover:scale-125 from-gray-400 to-violet-900 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex justify-center rounded-full"
             >
               {" "}
               Einstellungen{" "}
@@ -65,7 +60,7 @@ const navbar = () => {
           <li className="pt-4 px-2">
             <Link
               href="/login"
-              className="pl-2 pr-2 text-sm transition font-light duration-500 hover:scale-125 from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex justify-center rounded-full"
+              className="pl-2 pr-2 text-sm transition font-light duration-500 hover:scale-125 from-gray-400 to-violet-900 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex justify-center rounded-full"
             >
               {" "}
               Log Out{" "}
@@ -107,25 +102,25 @@ const navbar = () => {
             <ul className="text-white">
               <li
                 onClick={handleNav}
-                className="text-2xl my-10 transition font-light from-pink-500 to-orange-400 bg-gradient-to-bl justify-center rounded-full"
+                className="text-2xl my-10 transition font-light from-gray-400 to-violet-900 bg-gradient-to-bl justify-center rounded-full"
               >
                 <Link href="/"> Übersicht </Link>
               </li>
               <li
                 onClick={handleNav}
-                className="text-2xl my-10 w-48 transition font-light from-pink-500 to-orange-400 bg-gradient-to-bl justify-center rounded-full"
+                className="text-2xl my-10 w-48 transition font-light from-gray-400 to-violet-900 bg-gradient-to-bl justify-center rounded-full"
               >
                 <Link href="/patients"> Patienten </Link>
               </li>
               <li
                 onClick={handleNav}
-                className="text-2xl my-10 transition font-light from-pink-500 to-orange-400 bg-gradient-to-bl justify-center rounded-full"
+                className="text-2xl my-10 transition font-light from-gray-400 to-violet-900 bg-gradient-to-bl justify-center rounded-full"
               >
                 <Link href="/settings"> Einstellungen </Link>
               </li>
               <li
                 onClick={handleNav}
-                className="text-2xl my-10 transition font-light from-pink-500 to-orange-400 bg-gradient-to-bl justify-center rounded-full"
+                className="text-2xl my-10 transition font-light from-gray-400 to-violet-900 bg-gradient-to-bl justify-center rounded-full"
               >
                 <Link href="/login"> Log Out </Link>
               </li>
