@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import Navbar from "./navbar/navbar";
 import Footer from "./footer/footer";
+import PatientList from "./patient-list/PatientList";
 
 type Props = {
   children: ReactNode;
@@ -11,12 +12,9 @@ const Layout = ({
   children,
   title = "TypeScript Next.js Stripe Example",
 }: Props) => (
-  <div className="flexbox">
-    {" "}
-    {/* for sticky navbar and footer */}
+  <div className="min-h-screen flex flex-col">
     <Navbar />
     {children}
-    <Footer />
   </div>
 );
 

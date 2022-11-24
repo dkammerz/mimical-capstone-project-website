@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  background-color: #060620;
+  background-color: #dddddd;
   /* background-color: gray; */
   color: aliceblue;
 }
@@ -11,6 +11,8 @@ body {
 .background-footer {
   @apply bg-transparent;
 }
+
+/* For Navbar */
 
 .spacer {
   width: 100%;
@@ -21,6 +23,8 @@ body {
   width: 100%;
   height: 60px;
 }
+
+/* For Navbar - Content - Footer */
 
 .flexbox {
   min-height: 100vh;
@@ -87,4 +91,16 @@ tfoot td {
   background-color: rgb(175, 228, 122);
   padding: 0.5rem;
   border-radius: 8px;
+}
+
+/* Table CSS */
+
+/* Side margin for patient list */
+
+.side-margin {
+  margin-left: 18rem;
+}
+
+.no-margin {
+  margin-left: 0rem;
 }

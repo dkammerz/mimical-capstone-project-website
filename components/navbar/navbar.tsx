@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
+import { useRouter } from "next/router";
 
 // Usual navbar as learned in previous lessons
 // For CSS usualy I use TailwindCSS
@@ -13,19 +14,21 @@ const navbar = () => {
     setNav(!nav);
   };
 
+  const router = useRouter();
+  const currentRoute = router.pathname;
+
   return (
     <div
-      style={{ backgroundColor: "#060621" }}
+      style={{ backgroundColor: "#FFFFFF" }}
       className="fixedleft-0 top-0 w-full z-10 grid justify-items-center ease-in duration-300"
     >
       {/* Desktop View */}
-      <div className="hidden lg:flex max-w-[1240px] justify-between items-center p-4 text-white">
-        <Link href="/login">
+      <div className="flex max-w-[1240px] justify-between items-center mb-2 text-black">
+        <Link href="/">
           {" "}
-          <h1 className="text-2xl pt-3 transtion mr-44 font-light duration-500 hover:scale-125 flex justify-center">
-            emotion
-            <span className="font-bold">AL</span>
-            <span className="text-xs mt-3 ml-2"> Dashboard</span>{" "}
+          <h1 className="text-4xl pt-3 transtion mr-44 font-light duration-500 flex justify-center">
+            mimical
+            <span className="text-sm mt-3 ml-2"> Dashboard</span>{" "}
           </h1>{" "}
         </Link>
 
@@ -33,13 +36,17 @@ const navbar = () => {
           <li className="pt-4 px-2">
             <Link
               href="/"
-              className="pl-2 pr-2 text-sm transition font-light duration-500 hover:scale-125 from-gray-400 to-violet-900 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex justify-center rounded-full"
+              className={
+                currentRoute === "/"
+                  ? "pl-2 pr-2 text-sm transition font-light duration-500 scale-125 from-gray-400 to-violet-900 underline focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex justify-center rounded-full"
+                  : "pl-2 pr-2 text-sm transition font-light duration-500 hover:scale-125 from-gray-400 to-violet-900 hover:underline focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex justify-center rounded-full"
+              }
             >
               {" "}
               Übersicht{" "}
             </Link>
           </li>
-          <li className="pt-4 px-2">
+          {/* <li className="pt-4 px-2">
             <Link
               href="/patients"
               className="pl-2 pr-2 text-sm transition font-light duration-500 hover:scale-125 from-gray-400 to-violet-900 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex justify-center rounded-full"
@@ -47,11 +54,15 @@ const navbar = () => {
               {" "}
               Patienten{" "}
             </Link>
-          </li>
+          </li> */}
           <li className="pt-4 px-2">
             <Link
               href="/settings"
-              className="pl-2 pr-2 text-sm transition font-light duration-500 hover:scale-125 from-gray-400 to-violet-900 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex justify-center rounded-full"
+              className={
+                currentRoute === "/settings"
+                  ? "pl-2 pr-2 text-sm transition font-light duration-500 scale-125 from-gray-400 to-violet-900 underline focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex justify-center rounded-full"
+                  : "pl-2 pr-2 text-sm transition font-light duration-500 hover:scale-125 from-gray-400 to-violet-900 hover:underline focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex justify-center rounded-full"
+              }
             >
               {" "}
               Einstellungen{" "}
@@ -60,7 +71,11 @@ const navbar = () => {
           <li className="pt-4 px-2">
             <Link
               href="/login"
-              className="pl-2 pr-2 text-sm transition font-light duration-500 hover:scale-125 from-gray-400 to-violet-900 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex justify-center rounded-full"
+              className={
+                currentRoute === "/login"
+                  ? "pl-2 pr-2 text-sm transition font-light duration-500 scale-125 from-gray-400 to-violet-900 underline focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex justify-center rounded-full"
+                  : "pl-2 pr-2 text-sm transition font-light duration-500 hover:scale-125 from-gray-400 to-violet-900 hover:underline focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex justify-center rounded-full"
+              }
             >
               {" "}
               Log Out{" "}
@@ -69,15 +84,14 @@ const navbar = () => {
         </ul>
       </div>
 
-      <div className="fixed left-0 top-0 w-full z-10 ease-in duration-300">
-        {/* Mobile View */}
+      {/* <div className="fixed left-0 top-0 w-full z-10 ease-in duration-300">
         <div
           style={{ backgroundColor: "#060620" }}
           className="fixed left-0 top-0 h-16 lg:hidden w-full z-10 ease-in duration-300"
         >
           <Link href="/login">
             {" "}
-            <h1 className=" max-sm:text-lg text-2xl font-light pl-4 pt-4">
+            <h1 className=" max-sm:text-lg text-2xl text-center font-light pl-4 pt-4">
               {" "}
               emotion<span className="font-bold">AL</span> Dashboard{" "}
             </h1>{" "}
@@ -127,7 +141,7 @@ const navbar = () => {
             </ul>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

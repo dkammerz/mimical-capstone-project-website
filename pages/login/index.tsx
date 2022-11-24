@@ -7,79 +7,63 @@ export default function Login() {
   const [password, setPassword] = useState("");
 
   return (
-    <div className="text-center items-center bg-gray-700/40 mt-24 mb-24 ml-12 mr-12 pb-10 rounded-2xl">
-      <div className="text-6xl max-sm:text-4xl relative max-sm:-top-24 max-lg:-top-24 -top-28 font-light">
-        emotion<span className="font-bold">AL</span>
-      </div>
-      <div className="text-xl max-sm:text-md relative max-sm:-top-24 max-lg:-top-24 -top-28 font-light">
-        Therapeuten Dashboard
-      </div>
-      <h1 className="text-4xl font-extralight relative -top-8">Login</h1>
-      <div className="pb-5 grid place-items-center">
-        <label
-          className="text-xs max-sm:text-center max-sm:mr-0"
-          htmlFor="first"
-        >
-          E-Mail
-        </label>
-        <div className="relative">
-          <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-            <svg
-              aria-hidden="true"
-              className="w-5 h-5 text-gray-500 dark:text-gray-400"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
-              <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
-            </svg>
+    <div
+      className="min-h-screen bg-no-repeat bg-cover bg-center"
+      style={{
+        background:
+          "url('https://images.unsplash.com/photo-1486520299386-6d106b22014b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80')",
+      }}
+    >
+      <div className="flex justify-end">
+        <div className="bg-white min-h-screen w-1/2 flex justify-center items-center">
+          <div>
+            <form>
+              <div>
+                <span className="text-sm text-gray-900">
+                  Willkomen Zurück bei{" "}
+                  <span className="font-bold">mimical</span>
+                </span>
+                <h1 className="text-2xl text-black font-bold">
+                  Bitte melde dich an
+                </h1>
+              </div>
+              <div className="my-3">
+                <label
+                  className="block text-md text-black mb-2"
+                  htmlFor="email"
+                >
+                  Email
+                </label>
+                <input
+                  className="px-4 w-full border-2 py-2 text-black rounded-md text-sm outline-none"
+                  type="email"
+                  name="password"
+                  placeholder="Email"
+                />
+              </div>
+              <div className="mt-5">
+                <label
+                  className="block text-md text-black mb-2"
+                  htmlFor="password"
+                >
+                  Passwort
+                </label>
+                <input
+                  className="px-4 w-full border-2 text-black py-2 rounded-md text-sm outline-none"
+                  type="password"
+                  name="password"
+                  placeholder="Passwort"
+                />
+              </div>
+              <div className="">
+                <button className="mt-4 mb-3 w-full bg-white hover:bg-gray-200 text-black font-light border-solid border-2 border-black py-2 rounded-md transition duration-100">
+                  Einloggen
+                </button>
+              </div>
+            </form>
           </div>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-blue-500 focus:border-blue-500 block w-64 max-sm:w-32 pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="max.mustermann@emotional.de"
-          />
         </div>
       </div>
-      <div className="pb-5 grid place-items-center">
-        <label
-          className="mr-44 text-xs max-sm:text-center max-sm:mr-0"
-          htmlFor="first"
-        >
-          Passwort{" "}
-        </label>
-        <div className="relative">
-          <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-            <svg
-              aria-hidden="true"
-              className="w-5 h-5 text-gray-500 dark:text-gray-400"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
-              <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
-            </svg>
-          </div>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-blue-500 focus:border-blue-500 block max-sm:w-32 w-64 pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="********"
-          />
-        </div>
-      </div>
-      <button className="py-2 px-4 pl-2 pr-2 w-32 text-sm transition font-light duration-500 hover:scale-125 bg-gradient-to-br from-gray-400 to-violet-900 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 justify-center rounded-full">
-        Einloggen
-      </button>
     </div>
   );
 }
