@@ -26,10 +26,9 @@ const index = () => {
 
       {/* Patient Screen */}
 
-      <div
-        style={{ background: "#ffffff" }}
-        className="m-4 rounded-2xl w-full"
-      ></div>
+      <div style={{ background: "#ffffff" }} className="m-4 rounded-2xl w-full">
+        <button>Test</button>
+      </div>
 
       {/*  */}
     </div>
