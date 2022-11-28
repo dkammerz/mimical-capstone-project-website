@@ -41,22 +41,21 @@ app.prepare().then(() => {
         console.log('Connected to database');
     });
 
-
 }).catch(ex => {
     console.error(ex.stack);
     process.exit(1);
 });
 
-const getpatients = () => {
-    server.get((req, res) => {
-        let sql = 'SELECT * FROM patients';
-        let query = db.query(sql, (err, results) => {
-            if (err) throw err;
-            console.log(results);
-            res.send(results);
 
-        });
+// API Routes
+
+// Get Patient Data
+server.get("/api/patient-data", (req, res) => {
+    let sql = 'SELECT * FROM patients';
+    let query = db.query(sql, (err, results) => {
+        if (err) throw err;
+        res.send(results);
     });
-}
+});
 
-module.exports = { getpatients };
+
