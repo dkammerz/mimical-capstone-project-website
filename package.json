@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "nodemon backend/server.js",
+    "dev": "nodemon backend/server.js", 
     "devStart": "next dev",
     "build": "next build",
     "start": "next start",
