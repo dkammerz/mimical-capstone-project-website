@@ -1,17 +1,12 @@
 import React, { ReactNode } from "react";
 import Navbar from "./navbar/navbar";
-import Footer from "./footer/footer";
-import PatientList from "./patient-list/PatientList";
+import { useRouter } from "next/router";
 
 type Props = {
   children: ReactNode;
-  title?: string;
 };
 
-const Layout = ({
-  children,
-  title = "TypeScript Next.js Stripe Example",
-}: Props) => (
+const Layout = ({ children }: Props) => (
   <div className="min-h-screen flex flex-col">
     <Navbar />
     {children}

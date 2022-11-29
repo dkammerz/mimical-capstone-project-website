@@ -1,39 +1,46 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
+import Axios from "axios";
+import Link from "next/link";
 
 // Here a new patient is created and its values are safe in constants
 
 const index = () => {
+  const [prename, setPrename] = useState("");
   const [name, setName] = useState("");
-  const [id, setID] = useState("");
+  const [id, setID] = useState(Number);
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
   const [birthdate, setBirthdate] = useState("");
-  const [age, setAge] = useState("");
+  const [age, setAge] = useState(Number);
   const [interests, setInterests] = useState("");
   const [diagnose, setDiagnose] = useState("");
   const [affectedSide, setAffectedSide] = useState("");
-  const [muscles, setMuscles] = useState("");
+  const [limitations, setLimitations] = useState("");
   const [numbness, setNumbness] = useState("");
-  const [notes, setNotes] = useState("");
 
-  {
-    /* test */
-  }
-  function sendValues() {
-    console.log(name);
-    console.log(id);
-    console.log(email);
-    console.log(gender);
-    console.log(birthdate);
-    console.log(age);
-    console.log(interests);
-    console.log(diagnose);
-    console.log(affectedSide);
-    console.log(muscles);
-    console.log(numbness);
-    console.log(notes);
-  }
+  const submit = async () => {
+    const patient_data = {
+      prename,
+      name,
+      id,
+      email,
+      gender,
+      birthdate,
+      age,
+      interests,
+      diagnose,
+      affectedSide,
+      limitations,
+      numbness,
+    };
+
+    try {
+      await Axios.post("/api/add-patient", patient_data);
+    } catch (error) {
+      console.log("error");
+    }
+  };
 
   return (
     <div className="text-black font-light">
@@ -43,24 +50,35 @@ const index = () => {
       <div className="bg-grey-lighter min-h-screen flex flex-col">
         <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
           <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
+            <label className="text-gray-400">Vorname</label>
+            <input
+              type="text"
+              className="block border border-grey-light w-full p-3 rounded mb-4"
+              name="prename"
+              placeholder="Vorname"
+              onChange={(e) => setPrename(e.target.value)}
+              value={prename}
+            />
+            <label className="text-gray-400">Nachname</label>
             <input
               type="text"
               className="block border border-grey-light w-full p-3 rounded mb-4"
               name="fullname"
-              placeholder="Voller Name"
+              placeholder="Nachname"
               onChange={(e) => setName(e.target.value)}
               value={name}
             />
 
+            <label className="text-gray-400">ID</label>
             <input
               type="integer"
               className="block border border-grey-light w-full p-3 rounded mb-4"
               name="patient-id"
               placeholder="Patienten ID"
-              onChange={(e) => setID(e.target.value)}
+              onChange={(e) => setID(parseInt(e.target.value))}
               value={id}
             />
-
+            <label className="text-gray-400">Geschlecht</label>
             <select
               className="form-select form-select-sm text-gray-400 appearance-none block w-full p-3 rounded mb-4 font-light bg-white bg-clip-padding bg-no-repeat border-solid border border-grey-light transition ease-in-out"
               aria-label=".form-select-sm example"
@@ -72,6 +90,7 @@ const index = () => {
               <option value="m">Mann</option>
               <option value="f">Frau</option>
               <option value="d">Divers</option>
+              <option value="w">Wallmart Bag</option>
             </select>
 
             <label className="text-gray-400">Geburtsdatum</label>
@@ -83,15 +102,16 @@ const index = () => {
               value={birthdate}
             />
 
+            <label className="text-gray-400">Alter</label>
             <input
               type="integer"
               className="block border border-grey-light w-full p-3 rounded mb-4"
               name="age"
               placeholder="Alter"
-              onChange={(e) => setAge(e.target.value)}
+              onChange={(e) => setAge(parseInt(e.target.value))}
               value={age}
             />
-
+            <label className="text-gray-400">Email</label>
             <input
               type="text"
               className="block border border-grey-light w-full p-3 rounded mb-4"
@@ -113,7 +133,9 @@ const index = () => {
                 ></textarea>
               </label>
             </form>
-
+            <label className="text-gray-400">
+              Sprachtherapeutische Diagnose
+            </label>
             <select
               className="form-select form-select-sm text-gray-400 appearance-none block w-full p-3 rounded mb-4 font-light bg-white bg-clip-padding bg-no-repeat border-solid border border-grey-light transition ease-in-out"
               aria-label=".form-select-sm example"
@@ -127,7 +149,7 @@ const index = () => {
               <option value="c">Zentrale Fazialisparese</option>
               <option value="p">Periphere Fazialisparese</option>
             </select>
-
+            <label className="text-gray-400">Betroffene Seite</label>
             <select
               className="form-select form-select-sm text-gray-400 appearance-none block w-full mb-4 p-3 rounded font-light bg-white bg-clip-padding bg-no-repeat border-solid border border-grey-light transition ease-in-out"
               aria-label=".form-select-sm example"
@@ -149,12 +171,12 @@ const index = () => {
                   className="block border border-grey-light w-full text-black p-3 rounded mb-4"
                   rows={3}
                   placeholder="Hier notieren..."
-                  onChange={(e) => setMuscles(e.target.value)}
-                  value={muscles}
+                  onChange={(e) => setLimitations(e.target.value)}
+                  value={limitations}
                 ></textarea>
               </label>
             </form>
-
+            <label className="text-gray-400">Taubheit</label>
             <select
               className="form-select form-select-sm text-gray-400 appearance-none block w-full p-3 rounded mb-4 font-light bg-white bg-clip-padding bg-no-repeat border-solid border border-grey-light transition ease-in-out"
               aria-label=".form-select-sm example"
@@ -167,13 +189,15 @@ const index = () => {
               <option value="n">nein</option>
             </select>
 
-            <button
-              type="submit"
-              className="mt-4 mb-3 w-full bg-white hover:bg-gray-200 text-black border-solid border-2 border-black py-2 rounded-md transition duration-100"
-              onClick={sendValues}
-            >
-              Patienten anlegen
-            </button>
+            <Link href="/">
+              <button
+                type="submit"
+                className="mt-4 mb-3 w-full bg-white hover:bg-gray-200 text-black border-solid border-2 border-black py-2 rounded-md transition duration-100"
+                onClick={submit}
+              >
+                Patienten anlegen
+              </button>
+            </Link>
           </div>
         </div>
       </div>

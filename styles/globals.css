@@ -8,6 +8,12 @@ body {
   color: aliceblue;
 }
 
+/* Global Font Style */
+.scss-syntax {
+  font: Helvetica, sans-serif;
+  color: #333;
+}
+
 .background-footer {
   @apply bg-transparent;
 }
@@ -36,71 +42,14 @@ main {
   flex: 1 0 auto;
 }
 
-/* Table CSS */
-
-.table-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  background-color: #060620;
+/* Hide Scrollbar */
+/* For Webkit-based browsers (Chrome, Safari and Opera) */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
 
-.table-container h2 {
-  margin: 0;
-  text-decoration: underline;
-}
-
-table {
-  font-family: Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-  text-align: center;
-}
-
-table td,
-table th {
-  border: 1px solid rgb(255, 255, 255);
-  padding: 8px;
-}
-
-table tr:nth-child(even) {
-  background-color: #095f8a;
-  text-align: center;
-}
-
-table tr:hover {
-  @apply bg-gray-300;
-  @apply text-black;
-}
-
-table th,
-tfoot td {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: center;
-  @apply bg-gray-700;
-  color: white;
-  font-weight: 1;
-}
-
-.columns_toggle {
-  display: flex;
-  flex-direction: row;
-  gap: 0.5rem;
-  background-color: rgb(175, 228, 122);
-  padding: 0.5rem;
-  border-radius: 8px;
-}
-
-/* Table CSS */
-
-/* Side margin for patient list */
-
-.side-margin {
-  margin-left: 18rem;
-}
-
-.no-margin {
-  margin-left: 0rem;
+/* For IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }

@@ -3,9 +3,20 @@ import { type } from "os";
 import React from "react";
 import { useState, useEffect } from "react";
 import Axios from "axios";
+import { useRouter } from "next/router";
 
 const index = () => {
   const [patients, setPatients] = useState([]);
+  const router = useRouter();
+  const index = router.query.index;
+
+  // useEffect(() => {
+  //   fetch("/api/patient-data")
+  //     .then((req) => req.json())
+  //     .then((data) => {
+  //       setPatients(data);
+  //     });
+  // }, []);
 
   useEffect(() => {
     try {
@@ -59,7 +70,13 @@ const index = () => {
 
       <div style={{ background: "#ffffff" }} className="m-4 rounded-2xl w-full">
         <div className="m-4">
-          <div>Kein Patient ausgewählt</div>
+          {typeof patients === "undefined" ? (
+            <div>loading...</div>
+          ) : (
+            patients
+              .filter((patient: any) => patient.ID == index)
+              .map((patient: any) => <div>{patient.Name}</div>)
+          )}
         </div>
       </div>
 

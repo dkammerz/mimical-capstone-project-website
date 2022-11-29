@@ -1,10 +1,19 @@
 
 const next = require('next');
 const express = require('express');
+const bodyParser = require('body-parser');
+
+//mySQL dependency
 const mysql = require('mysql');
+
+
 const dev = process.env.NODE_ENV !== 'production';
+
+
 const app = next({ dev });
 const handle = app.getRequestHandler();
+
+const router = express.Router();
 
 const dotenv = require('dotenv');
 dotenv.config({ path: '.process.env' });
@@ -19,6 +28,7 @@ var db = mysql.createConnection({
 
 // Create connection to server
 const server = express();
+server.use(bodyParser.json());
 
 //Connect 
 app.prepare().then(() => {
@@ -46,7 +56,6 @@ app.prepare().then(() => {
     process.exit(1);
 });
 
-
 // API Routes
 
 // Get Patient Data
@@ -58,4 +67,14 @@ server.get("/api/patient-data", (req, res) => {
     });
 });
 
+// Add Patient Data
 
+server.post("/api/add-patient", (req, res) => {
+    let data = req.body;
+    // console.log(data.birthdate);
+    var sql = 'INSERT INTO patients (Name, Prename, ID, Age, Gender, Birthday, Email, Interests, Diagnose, AffectedSide, Limitations, Numbness, TherapisID) VALUES (' + '"' + data.name + '"' + ', ' + '"' + data.prename + '"' + ', ' + data.id + ', ' + data.age + ', ' + '"' + data.gender + '"' + ', ' + '"' + data.birthdate + '"' + ', ' + '"' + data.email + '"' + ', ' + '"' + data.interests + '"' + ', ' + '"' + data.diagnose + '"' + ', ' + '"' + data.affectedSide + '"' + ', ' + '"' + data.limitations + '"' + ', ' + '"' + data.numbness + '"' + ', 0)';
+    let query = db.query(sql, (err, results) => {
+        if (err) throw err;
+        res.send(results);
+    })
+});
