@@ -1,4 +1,3 @@
-import Link from "next/link";
 import React from "react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
@@ -6,6 +5,7 @@ import Axios from "axios";
 
 import ProfilePic from "../../public/ProfilePic.png";
 import Image from "next/image";
+import PatientList from "../../components/patient-list/Patientlist";
 
 const index = () => {
   const [patients, setPatients] = useState([]);
@@ -25,48 +25,13 @@ const index = () => {
   return (
     <div className="flex flex-col md:flex-row flex-1 font-light scss-syntax">
       {/* Patient Select */}
-      <div className=" md:flex-row flex-1">
-        <div
-          style={{ background: "#ffffff" }}
-          className="m-4 rounded-2xl w-full md:w-96"
-        >
-          <div className="grid justify-items-center">
-            <div className="my-3 text-xl">Alle Patienten</div>
-            <div className="bg-black/10 h-screen mb-5 w-4/5 rounded-xl scrollbar-hide overflow-y-scroll">
-              <div className="m-2 text-xs">
-                <div className="grid  justify-items-left text-lg">
-                  {typeof patients === "undefined" ? (
-                    <div>loading...</div>
-                  ) : (
-                    patients.map((patient: any) => (
-                      <Link href={"/patients/" + patient.ID}>
-                        <div className="text-center m-1 bg-white border-black border-solid border-2 rounded-lg">
-                          {patient.Prename + " " + patient.Name}
-                        </div>
-                      </Link>
-                    ))
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-          {/*
-           */}
-          {/*
-           */}
-          <div className="mx-4">
-            <Link href="/patients/new-patient">
-              <button className="w-full px-4 mb-4 bg-white hover:bg-gray-200 border-black border-solid border-2 py-2 rounded-md transition duration-100 text-xs">
-                Neuen Patienten Hinzufügen
-              </button>
-            </Link>
-          </div>
-        </div>
-      </div>
-
+      <PatientList />
       {/* Patient Screen */}
 
-      <div style={{ background: "#ffffff" }} className="m-4 rounded-2xl w-full">
+      <div
+        style={{ background: "#ffffff" }}
+        className="m-4 h-screen rounded-2xl justify-start w-full scrollbar-hide overflow-y-scroll"
+      >
         <div>
           <div className="m-5 bg-black/10 rounded-lg">
             <div className="m-4 flex">
@@ -83,7 +48,7 @@ const index = () => {
                 patients
                   .filter((patient: any) => patient.ID == index)
                   .map((patient: any) => (
-                    <div className=" ml-5 my-5 grid grid-rows-6 grid-flow-col gap-y-0.5 gap-x-3">
+                    <div className=" ml-5 m-5 grid grid-rows-6 grid-flow-col gap-y-0.5 gap-x-3">
                       <div className="text-sm">
                         Name: {patient.Prename} {patient.Name}
                       </div>
@@ -115,9 +80,44 @@ const index = () => {
             </div>
           </div>
         </div>
-        <div className="ml-5 mt-5">
-          To-Dos: Bilder in der Datenbank speichern, Notizen hinzufügen,
-          Limitations hinzufügen
+        <div className="m-5 bg-black/10 rounded-lg">
+          <div className="m-5 font-bold">
+            Bewegungsausmaß eingeschränkt bzw. reduziert bei folgender
+            Muskulatur:
+            <div id={"mydiv"} className="font-light">
+              {typeof patients === "undefined" ? (
+                <div>loading...</div>
+              ) : (
+                patients
+                  .filter((patient: any) => patient.ID == index)
+                  .map((patient: any) => (
+                    <div className="text-sm">{patient.Limitations}</div>
+                  ))
+              )}
+            </div>
+          </div>
+        </div>
+        <div className="bg-black/10 rounded-lg m-5">
+          <div className=" mx-5">
+            To-Dos: Bilder in der Datenbank speichern, Notizen mit Timestamp
+            hinzufügen
+          </div>
+        </div>
+        <div className="m-5 test bg-black/10 rounded-lg">
+          <div className="m-5 font-bold">
+            Notizen:
+            <div id={"mydiv"} className="font-light">
+              {typeof patients === "undefined" ? (
+                <div>loading...</div>
+              ) : (
+                patients
+                  .filter((patient: any) => patient.ID == index)
+                  .map((patient: any) => (
+                    <div className="text-sm">{patient.Interests}</div>
+                  ))
+              )}
+            </div>
+          </div>
         </div>
       </div>
 

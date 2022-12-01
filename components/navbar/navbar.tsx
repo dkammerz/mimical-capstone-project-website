@@ -28,7 +28,7 @@ const navbar = () => {
           {" "}
           <h1 className="text-4xl pt-3 transtion mr-44 font-light duration-500 flex justify-center">
             mimical
-            <span className="text-sm mt-3 ml-2"> Dashboard</span>{" "}
+            <span className="text-sm mt-8"> Dashboard</span>{" "}
           </h1>{" "}
         </Link>
 
