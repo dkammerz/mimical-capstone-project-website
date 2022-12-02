@@ -5,7 +5,7 @@ import facebook from "../../public/facebook.svg";
 import instagram from "../../public/instagram.svg";
 import linkedin from "../../public/linkedin.svg";
 
-// Usual footer as learned in previous lessons
+// NOT IMPLEMENTED
 
 const footer = () => {
   return (

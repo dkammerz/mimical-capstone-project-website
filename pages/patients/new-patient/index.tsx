@@ -8,7 +8,6 @@ import Link from "next/link";
 const index = () => {
   const [prename, setPrename] = useState("");
   const [name, setName] = useState("");
-  const [id, setID] = useState("");
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
   const [birthdate, setBirthdate] = useState("");
@@ -23,7 +22,6 @@ const index = () => {
     const patient_data = {
       prename,
       name,
-      id,
       email,
       gender,
       birthdate,
@@ -80,15 +78,6 @@ const index = () => {
              */}
             {/*
              */}
-            <label className="text-gray-400">ID</label>
-            <input
-              type="text"
-              className="block border border-grey-light w-full p-3 rounded mb-4"
-              name="patient-id"
-              placeholder="Patienten ID"
-              onChange={(e) => setID(e.target.value)}
-              value={id}
-            />
             {/*
              */}
             {/*

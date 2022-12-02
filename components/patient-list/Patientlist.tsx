@@ -1,19 +1,13 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import Axios from "axios";
+import Axios from "axios"; // Axios is a library that allows us to make HTTP requests
 
 const Patientlist = () => {
   const [patients, setPatients] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
-  function isSearch() {
-    if (searchTerm === "") {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
+  // useEffect is a React hook that allows us to run code when the component is mounted
+  // Axios is used to make HTTP requests
   useEffect(() => {
     try {
       Axios.get("/api/patient-data").then((res) => {
@@ -49,7 +43,7 @@ const Patientlist = () => {
             value={searchTerm}
           ></input>
           <div className="bg-black/10 mb-5 w-4/5 rounded-xl">
-            {isSearch() ? (
+            {isSearch(searchTerm) ? (
               <div className="m-2 text-xs">
                 <div className="grid justify-items-left text-lg">
                   {typeof patients === "undefined" ? (
@@ -66,7 +60,6 @@ const Patientlist = () => {
                 </div>
               </div>
             ) : (
-              // TEST
               <div className="m-2 text-xs">
                 <div className="grid justify-items-left text-lg">
                   {typeof patients === "undefined" ? (
@@ -95,7 +88,6 @@ const Patientlist = () => {
                   )}
                 </div>
               </div>
-              // TEST
             )}
           </div>
         </div>
@@ -105,3 +97,11 @@ const Patientlist = () => {
 };
 
 export default Patientlist;
+
+function isSearch(a: any) {
+  if (a === "") {
+    return true;
+  } else {
+    return false;
+  }
+}

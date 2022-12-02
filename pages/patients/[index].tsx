@@ -7,6 +7,8 @@ import ProfilePic from "../../public/ProfilePic.png";
 import Image from "next/image";
 import PatientList from "../../components/patient-list/Patientlist";
 
+// Dynamic Patient Page
+
 const index = () => {
   const [patients, setPatients] = useState([]);
   const router = useRouter();
@@ -127,6 +129,8 @@ const index = () => {
 };
 
 export default index;
+
+// Functions
 
 function genderChecker(a: any) {
   if (a == "m") {
