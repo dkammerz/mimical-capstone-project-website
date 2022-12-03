@@ -5,14 +5,14 @@
 // BodyParser is used to parse the body of the request 
 const next = require('next');
 const express = require('express');
-const app = next({ dev });
-const handle = app.getRequestHandler();
 const bodyParser = require('body-parser');
 
 
 //mySQL dependency
 const mysql = require('mysql');
 const dev = process.env.NODE_ENV !== 'production';
+const app = next({ dev });
+const handle = app.getRequestHandler();
 
 // mySQL password masking
 const dotenv = require('dotenv');
@@ -24,10 +24,15 @@ var db = mysql.createConnection({
     user: process.env.MYSQL_USER,
     password: process.env.MYSQL_PASSWORD,
     database: process.env.MYSQL_DATABASE
+
+    // host: "85.214.110.210:3306",
+    // user: "mimical",
+    // password: "MimicalServer007",
+    // database: "mimical"
 });
 
-
 const router = express.Router();
+
 
 
 // Generate random ID
