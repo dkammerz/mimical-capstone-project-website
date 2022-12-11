@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
+import axios from "axios";
 import { useRouter } from "next/router";
 
 // Usual navbar as learned in previous lessons
@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 
 const navbar = () => {
   const [nav, setNav] = useState(false);
+  const [user, setUser] = useState([]);
 
   const handleNav = () => {
     setNav(!nav);
@@ -17,6 +18,26 @@ const navbar = () => {
   const router = useRouter();
   const currentRoute = router.pathname;
 
+  const logout = () => {
+    axios.post("/api/logout");
+    refreshPage();
+    router.push("/login");
+  };
+
+  useEffect(() => {
+    axios.get("/api/authenticate").then((res) => {
+      if (res.data === true) {
+        axios.get("/api/getUser").then((res) => {
+          setUser(res.data);
+        });
+      }
+    });
+  }, []);
+
+  function refreshPage() {
+    window.location.reload();
+  }
+
   return (
     <div
       style={{ backgroundColor: "#FFFFFF" }}
@@ -24,7 +45,7 @@ const navbar = () => {
     >
       {/* Desktop View */}
       <div className="flex max-w-[1240px] justify-between items-center mb-2 text-black">
-        <Link href="/">
+        <Link href="/login">
           {" "}
           <h1 className="text-4xl pt-3 transtion mr-44 font-light duration-500 flex justify-center">
             mimical
@@ -38,8 +59,8 @@ const navbar = () => {
               href="/"
               className={
                 currentRoute === "/"
-                  ? "pl-2 pr-2 text-sm transition font-light duration-500 scale-125 from-gray-400 to-violet-900 underline focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex justify-center rounded-full"
-                  : "pl-2 pr-2 text-sm transition font-light duration-500 hover:scale-125 from-gray-400 to-violet-900 hover:underline focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex justify-center rounded-full"
+                  ? "pl-2 pr-2 text-sm transition font-light duration-500 scale-125 underline focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex justify-center rounded-full"
+                  : "pl-2 pr-2 text-sm transition font-light duration-500 hover:scale-125 hover:underline focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex justify-center rounded-full"
               }
             >
               {" "}
@@ -51,8 +72,8 @@ const navbar = () => {
               href="/settings"
               className={
                 currentRoute === "/settings"
-                  ? "pl-2 pr-2 text-sm transition font-light duration-500 scale-125 from-gray-400 to-violet-900 underline focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex justify-center rounded-full"
-                  : "pl-2 pr-2 text-sm transition font-light duration-500 hover:scale-125 from-gray-400 to-violet-900 hover:underline focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex justify-center rounded-full"
+                  ? "pl-2 pr-2 text-sm transition font-light duration-500 scale-125 underline focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex justify-center rounded-full"
+                  : "pl-2 pr-2 text-sm transition font-light duration-500 hover:scale-125 hover:underline focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex justify-center rounded-full"
               }
             >
               {" "}
@@ -62,10 +83,11 @@ const navbar = () => {
           <li className="pt-4 px-2">
             <Link
               href="/login"
+              onClick={logout}
               className={
-                currentRoute === "/login"
-                  ? "pl-2 pr-2 text-sm transition font-light duration-500 scale-125 from-gray-400 to-violet-900 underline focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex justify-center rounded-full"
-                  : "pl-2 pr-2 text-sm transition font-light duration-500 hover:scale-125 from-gray-400 to-violet-900 hover:underline focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex justify-center rounded-full"
+                currentRoute === "/logout"
+                  ? "pl-2 pr-2 text-sm transition font-light duration-500 scale-125 underline focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex justify-center rounded-full"
+                  : "pl-2 pr-2 text-sm transition font-light duration-500 hover:scale-125 hover:underline focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex justify-center rounded-full"
               }
             >
               {" "}
@@ -73,6 +95,12 @@ const navbar = () => {
             </Link>
           </li>
         </ul>
+        <div className="pt-4 px-2 pl-2 pr-2 text-sm transition font-light duration-500 focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex justify-center rounded-full">
+          Eingeloggt als: <span className="text-white">_</span>{" "}
+          <span className="font-bold">
+            {user[0] + " " + user[2] + " " + user[1]}
+          </span>
+        </div>
       </div>
     </div>
   );

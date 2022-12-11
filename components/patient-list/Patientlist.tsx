@@ -1,10 +1,12 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Axios from "axios"; // Axios is a library that allows us to make HTTP requests
+import axios from "axios";
 
 const Patientlist = () => {
   const [patients, setPatients] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [user, setUser] = useState([]);
 
   // useEffect is a React hook that allows us to run code when the component is mounted
   // Axios is used to make HTTP requests
@@ -16,6 +18,12 @@ const Patientlist = () => {
     } catch (error: any) {
       console.log("Es konnten keine Patienten geladen werden");
     }
+  }, []);
+
+  useEffect(() => {
+    Axios.get("/api/getUser").then((res) => {
+      setUser(res.data);
+    });
   }, []);
 
   return (
@@ -49,13 +57,15 @@ const Patientlist = () => {
                   {typeof patients === "undefined" ? (
                     <div>loading...</div>
                   ) : (
-                    patients.map((patient: any) => (
-                      <Link href={"/patients/" + patient.ID}>
-                        <div className="text-center bg-white m-1 rounded-lg">
-                          {patient.Prename + " " + patient.Name}
-                        </div>
-                      </Link>
-                    ))
+                    patients
+                      .filter((patient: any) => patient.therapistID === user[3])
+                      .map((patient: any) => (
+                        <Link href={"/patients/" + patient.ID}>
+                          <div className="text-center bg-white m-1 rounded-lg">
+                            {patient.prename + " " + patient.name}
+                          </div>
+                        </Link>
+                      ))
                   )}
                 </div>
               </div>
@@ -68,12 +78,12 @@ const Patientlist = () => {
                     patients
                       .filter(
                         (patient: any) =>
-                          patient.Name.includes(searchTerm) ||
-                          patient.Prename.includes(searchTerm) ||
-                          (patient.Prename + " " + patient.Name).includes(
+                          patient.name.includes(searchTerm) ||
+                          patient.prename.includes(searchTerm) ||
+                          (patient.prename + " " + patient.name).includes(
                             searchTerm
                           ) ||
-                          (patient.Name + " " + patient.Prename).includes(
+                          (patient.name + " " + patient.prename).includes(
                             searchTerm
                           ) ||
                           patient.ID === parseInt(searchTerm)
@@ -81,7 +91,7 @@ const Patientlist = () => {
                       .map((patient: any) => (
                         <Link href={"/patients/" + patient.ID}>
                           <div className="text-center bg-white m-1 rounded-lg">
-                            {patient.Prename + " " + patient.Name}
+                            {patient.prename + " " + patient.name}
                           </div>
                         </Link>
                       ))

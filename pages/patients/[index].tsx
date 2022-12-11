@@ -52,28 +52,28 @@ const index = () => {
                   .map((patient: any) => (
                     <div className=" ml-5 m-5 grid grid-rows-6 grid-flow-col gap-y-0.5 gap-x-3">
                       <div className="text-sm">
-                        Name: {patient.Prename} {patient.Name}
+                        Name: {patient.prename} {patient.name}
                       </div>
                       <div className="text-sm">Patienten ID: {patient.ID}</div>
                       <div className="text-sm">
-                        Geschlecht: {genderChecker(patient.Gender)}
+                        Geschlecht: {genderChecker(patient.gender)}
                       </div>
                       <div className="text-sm">
-                        Geburtsdatum : {getBirthdate(patient.Birthdate)}
+                        Geburtsdatum : {getBirthdate(patient.birthdate)}
                       </div>
                       <div className="text-sm">
-                        Diagnose: {diagnoseChecker(patient.Diagnose)}
+                        Diagnose: {diagnoseChecker(patient.diagnose)}
                       </div>
                       <div className="text-sm">
-                        Taubheitsgefühl?: {numbnessChecker(patient.Numbness)}
+                        Taubheitsgefühl?: {numbnessChecker(patient.numbness)}
                       </div>
-                      <div className="text-sm">Email: {patient.Email}</div>
+                      <div className="text-sm">Email: {patient.email}</div>
                       <div className="text-sm"></div>
                       <div className="text-sm"></div>
-                      <div className="text-sm">Alter: {patient.Age}</div>
+                      <div className="text-sm">Alter: {patient.age}</div>
                       <div className="text-sm">
                         Betroffene Seite:{" "}
-                        {affectedSideChecker(patient.AffectedSide)}{" "}
+                        {affectedSideChecker(patient.affectedSide)}{" "}
                       </div>
                       <div className="text-sm"></div>
                     </div>
@@ -93,7 +93,7 @@ const index = () => {
                 patients
                   .filter((patient: any) => patient.ID == index)
                   .map((patient: any) => (
-                    <div className="text-sm">{patient.Limitations}</div>
+                    <div className="text-sm">{patient.limitations}</div>
                   ))
               )}
             </div>
@@ -115,7 +115,7 @@ const index = () => {
                 patients
                   .filter((patient: any) => patient.ID == index)
                   .map((patient: any) => (
-                    <div className="text-sm">{patient.Interests}</div>
+                    <div className="text-sm">{patient.interests}</div>
                   ))
               )}
             </div>
