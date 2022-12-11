@@ -1,5 +1,4 @@
 
-
 // FUNCTIONS:
 // Import Next and Express as a requirement for the backend
 // BodyParser is used to parse the body of the request 
@@ -13,7 +12,6 @@ const expressSession = require('express-session');
 const cookieParser = require('cookie-parser');
 const db = require('./db');
 const mysqlStore = require('express-mysql-session')(expressSession);
-const expressRouter = require('express').Router();
 
 
 //mySQL dependency
@@ -46,7 +44,6 @@ const options = {
     password: process.env.MYSQL_PASSWORD,
     database: process.env.MYSQL_DATABASE,
     createDatabaseTable: true
-
 }
 
 const sessionStore = new mysqlStore(options);
@@ -59,12 +56,13 @@ server.use(expressSession({ //Setting a cookie for 1 hour
     store: sessionStore,
     cookie: { maxAge: 3600000 }
 }))
+
+
 require('./passportConfig')(passport);
 server.use(passport.initialize());
 server.use(passport.session());
 
 
-;
 app.prepare().then(() => {
 
     // Connect to server
@@ -114,9 +112,7 @@ server.post("/api/login", (req, res, next) => {
 server.post('/api/logout', function (req, res, next) {
     req.logout(function (err) {
         if (err) throw err;
-        res.redirect('/login');
     });
-    (req, res, next);
 });
 
 server.get("/api/getUser", (req, res) => {
