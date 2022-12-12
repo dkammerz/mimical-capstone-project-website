@@ -7,6 +7,7 @@ const Patientlist = () => {
   const [patients, setPatients] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [user, setUser] = useState([]);
+  const [user2, setUser2] = useState([]);
 
   // useEffect is a React hook that allows us to run code when the component is mounted
   // Axios is used to make HTTP requests
@@ -26,12 +27,29 @@ const Patientlist = () => {
     });
   }, []);
 
+  useEffect(() => {
+    axios.get("/api/authenticate").then((res) => {
+      if (res.data === true) {
+        axios.get("/api/getUser").then((res) => {
+          setUser2(res.data);
+        });
+      }
+    });
+  }, []);
+
   return (
     <div className=" md:flex-row flex-1">
       <div
         style={{ background: "#ffffff" }}
         className="m-4 h-screen scrollbar-hide overflow-y-scroll rounded-2xl w-full md:w-72"
       >
+        <div className="pt-4 px-2 pl-2 pr-2 text-xs grid justify-items-center transition font-light duration-500 focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 rounded-full">
+          Eingeloggt als:
+        </div>
+        <div className="px-2 pl-2 pr-2 grid justify-items-center text-xs transition font-bold duration-500 focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 rounded-full">
+          {user[0] + " " + user[2] + " " + user[1]}
+        </div>
+
         <div className="grid justify-items-center">
           <div className="my-3 text-xl">Patientenübersicht</div>
           <div className="mx-4">

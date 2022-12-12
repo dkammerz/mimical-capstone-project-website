@@ -14,8 +14,9 @@ const db = require('./db');
 const mysqlStore = require('express-mysql-session')(expressSession);
 
 
-//mySQL dependency
 const dev = process.env.NODE_ENV !== 'production';
+
+// Start NextJS through Express
 const app = nextJS({ dev });
 const handle = app.getRequestHandler();
 
@@ -36,7 +37,7 @@ server.use(cors(
 ));
 server.use(cookieParser(process.env.MYSECRETKEY));
 
-
+// Session Logs in the database
 const options = {
     connectionLimit: 10,
     host: process.env.MYSQL_HOST,
@@ -45,11 +46,10 @@ const options = {
     database: process.env.MYSQL_DATABASE,
     createDatabaseTable: true
 }
-
 const sessionStore = new mysqlStore(options);
 
-
-server.use(expressSession({ //Setting a cookie for 1 hour
+//Setting a cookie
+server.use(expressSession({
     secret: process.env.MYSECRETKEY,
     resave: false,
     saveUninitialized: true,
@@ -57,7 +57,7 @@ server.use(expressSession({ //Setting a cookie for 1 hour
     cookie: { maxAge: 3600000 }
 }))
 
-
+// Passport Config initailization
 require('./passportConfig')(passport);
 server.use(passport.initialize());
 server.use(passport.session());
@@ -156,11 +156,8 @@ server.get("/api/therapist-data", (req, res) => {
 
 server.post('/debug', async (req, res) => {
     const password = req.body;
-    console.log(password)
+    console.log("this is the pw" + password.password)
 
-    try {
-        const valid = await bcrypt.hash(password, 10);
-        console.log(valid);
-    } catch (err) {
-    }
+    const valid = await bcrypt.hash(password.password, 12);
+    console.log("this is the hashed pw " + valid);
 });

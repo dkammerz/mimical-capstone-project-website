@@ -9,7 +9,6 @@ import { useRouter } from "next/router";
 
 const navbar = () => {
   const [nav, setNav] = useState(false);
-  const [user, setUser] = useState([]);
 
   const handleNav = () => {
     setNav(!nav);
@@ -25,16 +24,6 @@ const navbar = () => {
     router.push("/login");
   };
 
-  useEffect(() => {
-    axios.get("/api/authenticate").then((res) => {
-      if (res.data === true) {
-        axios.get("/api/getUser").then((res) => {
-          setUser(res.data);
-        });
-      }
-    });
-  }, []);
-
   function refreshPage() {
     window.location.reload();
   }
@@ -43,19 +32,18 @@ const navbar = () => {
     return (
       <div
         style={{ backgroundColor: "#FFFFFF" }}
-        className="fixedleft-0 top-0 w-full z-10 grid justify-items-center ease-in duration-300"
+        className="w-full z-10 grid justify-items-start ease-in duration-300"
       >
-        {/* Desktop View */}
         <div className="flex max-w-[1240px] justify-between items-center mb-2 text-black">
           <Link href="/login">
             {" "}
-            <h1 className="text-4xl pt-3 transtion mr-44 font-light duration-500 flex justify-center">
+            <h1 className="text-4xl pt-3 transtion ml-16 font-light duration-500 flex justify-center">
               mimical
               <span className="text-sm mt-8"> Dashboard</span>{" "}
             </h1>{" "}
           </Link>
 
-          <ul className="hidden sm:flex justify-items-center">
+          <ul className="flex  absolute right-0 mr-16 ">
             <li className="pt-4 px-2">
               <Link
                 href="/"
@@ -97,12 +85,6 @@ const navbar = () => {
               </Link>
             </li>
           </ul>
-          <div className="pt-4 px-2 pl-2 pr-2 text-sm transition font-light duration-500 focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex justify-center rounded-full">
-            Eingeloggt als: <span className="text-white">_</span>{" "}
-            <span className="font-bold">
-              {user[0] + " " + user[2] + " " + user[1]}
-            </span>
-          </div>
         </div>
       </div>
     );
