@@ -32,7 +32,7 @@ const navbar = () => {
     return (
       <div
         style={{ backgroundColor: "#FFFFFF" }}
-        className="w-full z-10 grid justify-items-start ease-in duration-300"
+        className="w-full z-10 grid shadow-md justify-items-start ease-in duration-300"
       >
         <div className="flex max-w-[1240px] justify-between items-center mb-2 text-black">
           <Link href="/login">

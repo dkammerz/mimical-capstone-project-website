@@ -32,7 +32,7 @@ const index = () => {
 
       <div
         style={{ background: "#ffffff" }}
-        className="m-4 h-screen rounded-2xl justify-start w-full scrollbar-hide overflow-y-scroll"
+        className="m-4 h-screen rounded-2xl justify-start w-full shadow-lg scrollbar-hide overflow-y-scroll"
       >
         <div>
           <div className="m-5 bg-black/10 rounded-lg">

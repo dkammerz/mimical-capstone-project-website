@@ -38,10 +38,10 @@ const Patientlist = () => {
   }, []);
 
   return (
-    <div className=" md:flex-row flex-1">
+    <div className=" md:flex-row  flex-1">
       <div
         style={{ background: "#ffffff" }}
-        className="m-4 h-screen scrollbar-hide overflow-y-scroll rounded-2xl w-full md:w-72"
+        className="m-4 h-screen scrollbar-hide shadow-lg overflow-y-scroll rounded-2xl w-full md:w-72"
       >
         <div className="pt-4 px-2 pl-2 pr-2 text-xs grid justify-items-center transition font-light duration-500 focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 rounded-full">
           Eingeloggt als:
@@ -96,15 +96,20 @@ const Patientlist = () => {
                     patients
                       .filter(
                         (patient: any) =>
-                          patient.name.includes(searchTerm) ||
-                          patient.prename.includes(searchTerm) ||
-                          (patient.prename + " " + patient.name).includes(
+                          (patient.name.includes(searchTerm) &&
+                            patient.therapistID === user[3]) ||
+                          (patient.prename.includes(searchTerm) &&
+                            patient.therapistID === user[3]) ||
+                          ((patient.prename + " " + patient.name).includes(
                             searchTerm
-                          ) ||
-                          (patient.name + " " + patient.prename).includes(
+                          ) &&
+                            patient.therapistID === user[3]) ||
+                          ((patient.name + " " + patient.prename).includes(
                             searchTerm
-                          ) ||
-                          patient.ID === parseInt(searchTerm)
+                          ) &&
+                            patient.therapistID === user[3]) ||
+                          (patient.ID === parseInt(searchTerm) &&
+                            patient.therapistID === user[3])
                       )
                       .map((patient: any) => (
                         <Link href={"/patients/" + patient.ID}>

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect, use } from "react";
 import { useRouter } from "next/router";
+import { CodeAction } from "typescript";
 
 // The login page captures the user's email and password and will be send to the backend in future sprints
 
@@ -97,6 +98,7 @@ export default function Login() {
             </form>
             <div className="">
               <button
+                type="submit"
                 onClick={handleLogin}
                 className="mt-4 mb-3 w-full bg-white hover:bg-gray-200 font-light border-solid border-2 border-black py-2 rounded-md transition duration-100"
               >
