@@ -10,6 +10,7 @@ const cors = require('cors');
 const passport = require('passport');
 const expressSession = require('express-session');
 const cookieParser = require('cookie-parser');
+const cookie = require('js-cookie');
 const db = require('./db');
 const mysqlStore = require('express-mysql-session')(expressSession);
 
@@ -17,7 +18,7 @@ const mysqlStore = require('express-mysql-session')(expressSession);
 const dev = process.env.NODE_ENV !== 'production';
 
 // Start NextJS through Express
-const app = nextJS({ dev });
+const app = nextJS({ dev, hostname: 'localhost', port: 3000 });
 const handle = app.getRequestHandler();
 
 // Generate random ID
@@ -26,7 +27,6 @@ let myuuid = uuidv4();
 
 // Create connection to server
 const server = express();
-const router = express.Router();
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(cors(
@@ -52,7 +52,8 @@ const sessionStore = new mysqlStore(options);
 server.use(expressSession({
     secret: process.env.MYSECRETKEY,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
+    httpOnly: true,
     store: sessionStore,
     cookie: { maxAge: 3600000 }
 }))
@@ -92,6 +93,19 @@ app.prepare().then(() => {
 
 // Databse Routes
 
+// Debugging
+
+server.post('/debug', async (req, res) => {
+    const password = req.body;
+    console.log("this is the pw " + password.password)
+
+    const valid = await bcrypt.hash(password.password, 12);
+    console.log("this is the hashed pw " + valid);
+});
+
+
+// API Routes
+
 server.post("/api/login", (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
 
@@ -99,10 +113,10 @@ server.post("/api/login", (req, res, next) => {
             console.log(err);
         }
         if (!user) {
-            console.log('There is no user with that email')
             res.send(true);
         }
         req.login(user, err => {
+            // cookie.set('loggedin', user);
             res.send(false);
         })
     })
@@ -112,6 +126,14 @@ server.post("/api/login", (req, res, next) => {
 server.post('/api/logout', function (req, res, next) {
     req.logout(function (err) {
         if (err) throw err;
+        req.session.destroy(function (err) {
+            if (!err) {
+                res.status(200).clearCookie('connect.sid', { path: '/' }).json({ status: "Success" });
+            } else {
+                throw err;
+            }
+
+        });
     });
 });
 
@@ -121,6 +143,22 @@ server.get("/api/getUser", (req, res) => {
 
 server.get("/api/authenticate", (req, res) => {
     req.isAuthenticated() ? res.send(true) : res.send(false);
+});
+
+server.get("/api/isAdmin", (req, res) => {
+    let user = req.user;
+    const sql = 'SELECT * FROM therapist WHERE email = ' + JSON.stringify(user[4]);
+    let query = db.query(sql
+        , (err, results) => {
+            console.log(results[0].isAdmin);
+            if (err) throw err;
+            if (results[0].isAdmin === 1) {
+                res.send(true);
+            } else {
+                res.send(false);
+
+            }
+        });
 });
 
 // Get Patient Data
@@ -150,14 +188,4 @@ server.get("/api/therapist-data", (req, res) => {
         if (err) throw err;
         res.send(results);
     });
-});
-
-// Debugging
-
-server.post('/debug', async (req, res) => {
-    const password = req.body;
-    console.log("this is the pw" + password.password)
-
-    const valid = await bcrypt.hash(password.password, 12);
-    console.log("this is the hashed pw " + valid);
 });

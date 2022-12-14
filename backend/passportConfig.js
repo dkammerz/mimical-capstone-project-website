@@ -5,7 +5,7 @@ const localStrategy = require('passport-local').Strategy;
 module.exports = function (passport) {
     passport.use(
         new localStrategy((username, password, done) => {
-            const query = 'SELECT * FROM therapist WHERE Email = ' + JSON.stringify(username);
+            const query = 'SELECT * FROM therapist WHERE email = ' + JSON.stringify(username);
             db.query(query, [username], (err, results) => {
                 if (err) {
                     console.log(err);
@@ -39,6 +39,7 @@ module.exports = function (passport) {
                 console.log(err);
                 throw err;
             }
+
             const userInfo = [
                 title = results[0].title,
                 name = results[0].name,
@@ -47,6 +48,7 @@ module.exports = function (passport) {
                 email = results[0].email,
                 password = results[0].password,
                 company = results[0].company,
+                isAdmin = results[0].isAdmin,
             ];
             done(null, userInfo);
         }

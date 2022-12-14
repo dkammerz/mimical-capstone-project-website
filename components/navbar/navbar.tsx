@@ -20,7 +20,6 @@ const navbar = () => {
 
   const logout = () => {
     axios.post("/api/logout");
-    refreshPage();
     router.push("/login");
   };
 

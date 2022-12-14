@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useState, useEffect, use } from "react";
 import { useRouter } from "next/router";
-import { CodeAction } from "typescript";
 
 // The login page captures the user's email and password and will be send to the backend in future sprints
 
@@ -32,13 +31,13 @@ export default function Login() {
     });
   };
 
-  useEffect(() => {
-    axios.get("http://localhost:3000/api/authenticate").then((res) => {
-      if (res.data === true) {
-        router.push("/");
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   axios.get("http://localhost:3000/api/authenticate").then((res) => {
+  //     if (res.data === true) {
+  //       router.push("/");
+  //     }
+  //   });
+  // }, []);
 
   function refreshPage() {
     window.location.reload();
