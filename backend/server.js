@@ -10,7 +10,6 @@ const cors = require('cors');
 const passport = require('passport');
 const expressSession = require('express-session');
 const cookieParser = require('cookie-parser');
-const cookie = require('js-cookie');
 const db = require('./db');
 const mysqlStore = require('express-mysql-session')(expressSession);
 

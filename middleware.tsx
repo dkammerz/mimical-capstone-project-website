@@ -10,15 +10,16 @@ export function middleware(req: NextRequest, res: NextResponse) {
   let url = req.url;
   const verify = req.cookies.get("connect.sid");
 
-  if (!verify && !url.includes("/login")) {
+  if (!verify && !(url === "http://localhost:3000/login")) {
     if (url.includes("/_next")) {
+      url.match;
       return NextResponse.next();
     } else {
       return NextResponse.redirect("http://localhost:3000/login");
     }
   }
 
-  if (verify && url.includes("/login")) {
+  if (verify && url === "http://localhost:3000/") {
     if (url.includes("/_next")) {
       return NextResponse.next();
     } else {

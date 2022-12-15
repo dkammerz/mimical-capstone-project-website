@@ -100,10 +100,7 @@ const index = () => {
           </div>
         </div>
         <div className="bg-black/10 rounded-lg m-5">
-          <div className=" mx-5">
-            To-Dos: Bilder in der Datenbank speichern, Notizen mit Timestamp
-            hinzufügen
-          </div>
+          <div className=" mx-5">.</div>
         </div>
         <div className="m-5 test bg-black/10 rounded-lg">
           <div className="m-5 font-bold">
