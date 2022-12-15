@@ -19,7 +19,7 @@ export function middleware(req: NextRequest, res: NextResponse) {
     }
   }
 
-  if (verify && url === "http://localhost:3000/") {
+  if (verify && url === "http://localhost:3000/login") {
     if (url.includes("/_next")) {
       return NextResponse.next();
     } else {
