@@ -26,6 +26,7 @@
     "express-mysql-session": "^2.1.8",
     "express-session": "^1.17.3",
     "heroicons": "^2.0.13",
+    "js-cookie": "^3.0.1",
     "mysql": "^2.18.1",
     "next": "13.0.3",
     "passport": "^0.6.0",

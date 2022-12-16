@@ -10,9 +10,9 @@ const cors = require('cors');
 const passport = require('passport');
 const expressSession = require('express-session');
 const cookieParser = require('cookie-parser');
+const cookie = require('js-cookie');
 const db = require('./db');
 const mysqlStore = require('express-mysql-session')(expressSession);
-
 
 const dev = process.env.NODE_ENV !== 'production';
 
@@ -62,7 +62,6 @@ require('./passportConfig')(passport);
 server.use(passport.initialize());
 server.use(passport.session());
 
-
 app.prepare().then(() => {
 
     // Connect to server
@@ -87,8 +86,6 @@ app.prepare().then(() => {
     console.error(ex.stack);
     process.exit(1);
 });
-
-
 
 // Databse Routes
 
@@ -124,14 +121,12 @@ server.post("/api/login", (req, res, next) => {
 
 server.post('/api/logout', function (req, res, next) {
     req.logout(function (err) {
-        if (err) throw err;
         req.session.destroy(function (err) {
             if (!err) {
                 res.status(200).clearCookie('connect.sid', { path: '/' }).json({ status: "Success" });
             } else {
                 throw err;
             }
-
         });
     });
 });
@@ -161,8 +156,20 @@ server.get("/api/isAdmin", (req, res) => {
 });
 
 // Get Patient Data
-server.get("/api/patient-data", (req, res) => {
+server.get("/api/all-patient-data", (req, res) => {
     let sql = 'SELECT * FROM patients';
+    let query = db.query(sql, (err, results) => {
+        if (err) throw err;
+        res.send(results);
+    });
+});
+
+
+// Get Patient User-Specific Data
+server.get("/api/patient-data", (req, res) => {
+    let user = req.user;
+    const sql = 'SELECT * FROM patients WHERE therapistID = ' + JSON.stringify(user[3]);
+    // let sql = 'SELECT * FROM patients';
     let query = db.query(sql, (err, results) => {
         if (err) throw err;
         res.send(results);
@@ -178,7 +185,6 @@ server.post("/api/add-patient", (req, res) => {
         res.send(results);
     });
 });
-
 
 // Get Therapist Data
 server.get("/api/therapist-data", (req, res) => {
