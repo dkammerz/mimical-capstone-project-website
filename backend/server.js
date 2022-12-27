@@ -139,32 +139,6 @@ server.get("/api/authenticate", (req, res) => {
     req.isAuthenticated() ? res.send(true) : res.send(false);
 });
 
-server.get("/api/isAdmin", (req, res) => {
-    let user = req.user;
-    const sql = 'SELECT * FROM therapist WHERE email = ' + JSON.stringify(user[4]);
-    let query = db.query(sql
-        , (err, results) => {
-            console.log(results[0].isAdmin);
-            if (err) throw err;
-            if (results[0].isAdmin === 1) {
-                res.send(true);
-            } else {
-                res.send(false);
-
-            }
-        });
-});
-
-// Get Patient Data
-server.get("/api/all-patient-data", (req, res) => {
-    let sql = 'SELECT * FROM patients';
-    let query = db.query(sql, (err, results) => {
-        if (err) throw err;
-        res.send(results);
-    });
-});
-
-
 // Get Patient User-Specific Data
 server.get("/api/patient-data", (req, res) => {
     let user = req.user;
@@ -176,21 +150,51 @@ server.get("/api/patient-data", (req, res) => {
     });
 });
 
-// Add Patient Data
-server.post("/api/add-patient", (req, res) => {
+// Add Patient via provided key
+server.post("/api/check-patient-key-from-dashboard", (req, res) => {
     let data = req.body;
-    var sql = 'INSERT INTO patients (name, prename, age, gender, birthdate, email, interests, diagnose, affectedSide, limitations, numbness, therapistID) VALUES (' + JSON.stringify(data.name) + ', ' + JSON.stringify(data.prename) + ', ' + data.age + ', ' + JSON.stringify(data.gender) + ', ' + JSON.stringify(data.birthdate) + ', ' + JSON.stringify(data.email) + ', ' + JSON.stringify(data.interests) + ', ' + JSON.stringify(data.diagnose) + ', ' + JSON.stringify(data.affectedSide) + ', ' + JSON.stringify(data.limitations) + ', ' + JSON.stringify(data.numbness) + ', 0)';
-    let query = db.query(sql, (err, results) => {
+
+    function getDateHelper(a) {
+        if (a < 10) {
+            return "0" + a;
+        } else {
+            return a;
+        }
+    }
+
+    // Check if key is valid
+    var today = new Date(), time = JSON.stringify(today.getFullYear() + "-" + getDateHelper(today.getMonth() + 1) + "-" + getDateHelper(today.getDate()) + " " + getDateHelper(today.getHours()) + ':' + getDateHelper(today.getMinutes()) + ':' + getDateHelper(today.getSeconds()));
+    var currentTime = time;
+    var sql = 'UPDATE patients SET therapistAddKey = NULL, expirationDateKey = NULL WHERE expirationDateKey < ' + currentTime;
+    var query = db.query(sql, (err, results) => {
         if (err) throw err;
-        res.send(results);
+    });
+
+    // If key is valid, add send back patient data
+    var sql = 'SELECT * FROM patients WHERE therapistAddKey = ' + JSON.stringify(data.key);
+    var query = db.query(sql, (err, results) => {
+        if (err) throw err;
+        if (results.length > 0) {
+            res.send({ name: results[0].name, prename: results[0].prename, ID: results[0].ID, gender: results[0].gender, birthdate: results[0].birthdate, email: results[0].email });
+        } else {
+            res.send("nothing");
+        }
     });
 });
 
-// Get Therapist Data
-server.get("/api/therapist-data", (req, res) => {
-    let sql = 'SELECT * FROM therapist';
-    let query = db.query(sql, (err, results) => {
+// Add Patient Data
+server.post("/api/add-patient", (req, res) => {
+    let data = req.body;
+    let therapitstID = req.user;
+    console.log(data.ID);
+    var sql = 'UPDATE patients SET interests = ' + JSON.stringify(data.interestsSend) + ', diagnose = ' + JSON.stringify(data.diagnoseSend) + ', affectedSide = ' + JSON.stringify(data.affectedSideSend) + ', limitations = ' + JSON.stringify(data.motionSend) + ', numbness = ' + JSON.stringify(data.numbnessSend) + ', therapistID = ' + JSON.stringify(therapitstID[3]) + ' WHERE (ID = ' + JSON.stringify(data.ID) + ')';
+    var query = db.query(sql, (err, results) => {
         if (err) throw err;
-        res.send(results);
     });
+
+    var sql = 'UPDATE patients SET therapistAddKey = NULL, expirationDateKey = NULL WHERE ID = ' + JSON.stringify(data.ID);
+    var query = db.query(sql, (err, results) => {
+        if (err) throw err;
+    });
+    res.redirect('/login');
 });

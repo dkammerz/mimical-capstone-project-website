@@ -50,7 +50,10 @@ const index = () => {
                 patients
                   .filter((patient: any) => patient.ID == index)
                   .map((patient: any) => (
-                    <div className=" ml-5 m-5 grid grid-rows-6 grid-flow-col gap-y-0.5 gap-x-3">
+                    <div
+                      key={patient.ID}
+                      className=" ml-5 m-5 grid grid-rows-6 grid-flow-col gap-y-0.5 gap-x-3"
+                    >
                       <div className="text-sm">
                         Name: {patient.prename} {patient.name}
                       </div>
@@ -62,18 +65,20 @@ const index = () => {
                         Geburtsdatum : {getBirthdate(patient.birthdate)}
                       </div>
                       <div className="text-sm">
-                        Diagnose: {diagnoseChecker(patient.diagnose)}
+                        Taubheitsgefühl?: {patient.numbness}
                       </div>
                       <div className="text-sm">
-                        Taubheitsgefühl?: {numbnessChecker(patient.numbness)}
+                        Diagnose: {patient.diagnose}
                       </div>
+
                       <div className="text-sm">Email: {patient.email}</div>
                       <div className="text-sm"></div>
                       <div className="text-sm"></div>
-                      <div className="text-sm">Alter: {patient.age}</div>
                       <div className="text-sm">
-                        Betroffene Seite:{" "}
-                        {affectedSideChecker(patient.affectedSide)}{" "}
+                        Alter: {getAge(patient.birthdate)}
+                      </div>
+                      <div className="text-sm">
+                        Betroffene Seite: {patient.affectedSide}
                       </div>
                       <div className="text-sm"></div>
                     </div>
@@ -86,14 +91,16 @@ const index = () => {
           <div className="m-5 font-bold">
             Bewegungsausmaß eingeschränkt bzw. reduziert bei folgender
             Muskulatur:
-            <div id={"mydiv"} className="font-light">
+            <div className="font-light">
               {typeof patients === "undefined" ? (
                 <div>loading...</div>
               ) : (
                 patients
                   .filter((patient: any) => patient.ID == index)
                   .map((patient: any) => (
-                    <div className="text-sm">{patient.limitations}</div>
+                    <div key={patient.ID} className="text-sm">
+                      {patient.limitations}
+                    </div>
                   ))
               )}
             </div>
@@ -112,7 +119,9 @@ const index = () => {
                 patients
                   .filter((patient: any) => patient.ID == index)
                   .map((patient: any) => (
-                    <div className="text-sm">{patient.interests}</div>
+                    <div key={patient.ID} className="text-sm">
+                      {patient.interests}
+                    </div>
                   ))
               )}
             </div>
@@ -129,7 +138,7 @@ export default index;
 
 // Functions
 
-function genderChecker(a: any) {
+function genderChecker(a: String) {
   if (a == "m") {
     return "Männlich";
   } else if (a == "f") {
@@ -139,33 +148,7 @@ function genderChecker(a: any) {
   }
 }
 
-function diagnoseChecker(a: any) {
-  if (a == "c") {
-    return "Zentrale Facialisparese";
-  } else if (a == "p") {
-    return "Periphere Facialisparese";
-  }
-}
-
-function affectedSideChecker(a: any) {
-  if (a == "r") {
-    return "Rechts";
-  } else if (a == "l") {
-    return "Links";
-  } else {
-    return "Beide";
-  }
-}
-
-function numbnessChecker(a: any) {
-  if (a == "y") {
-    return "Ja";
-  } else if (a == "n") {
-    return "Nein";
-  }
-}
-
-function getBirthdate(a: any) {
+function getBirthdate(a: Date) {
   var date = new Date(a);
   var day = getDateHelper(date.getDate());
   var month = getDateHelper(date.getMonth() + 1);
@@ -173,7 +156,18 @@ function getBirthdate(a: any) {
   return day + "." + month + "." + year;
 }
 
-function getDateHelper(a: any) {
+function getAge(dateString: Date) {
+  var today = new Date();
+  var birthDate = new Date(dateString);
+  var age = today.getFullYear() - birthDate.getFullYear();
+  var m = today.getMonth() - birthDate.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+  }
+  return age;
+}
+
+function getDateHelper(a: number) {
   if (a < 10) {
     return "0" + a;
   } else {

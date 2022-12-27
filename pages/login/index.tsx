@@ -19,7 +19,7 @@ export default function Login() {
       },
       withCredentials: true,
       url: "http://localhost:3000/api/login",
-    }).then((res) => {
+    }).then(async (res) => {
       if (res.data === false) {
         refreshPage();
         router.push("/");
@@ -27,21 +27,11 @@ export default function Login() {
 
       if (res.data === true) {
         setError(true);
+        await sleep(5000);
+        setError(false);
       }
     });
   };
-
-  // useEffect(() => {
-  //   axios.get("http://localhost:3000/api/authenticate").then((res) => {
-  //     if (res.data === true) {
-  //       router.push("/");
-  //     }
-  //   });
-  // }, []);
-
-  function refreshPage() {
-    window.location.reload();
-  }
 
   return (
     <div
@@ -117,3 +107,11 @@ export default function Login() {
     </div>
   );
 }
+
+function refreshPage() {
+  window.location.reload();
+}
+
+const sleep = (milliseconds: number) => {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
+};
