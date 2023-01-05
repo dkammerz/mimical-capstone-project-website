@@ -14,7 +14,15 @@ const debug = () => {
     };
 
     try {
-      await axios.post("/debug", data);
+      await axios.post("/debug-1", data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleClick2 = async () => {
+    try {
+      await axios.post("/debug-2");
     } catch (error) {
       console.log(error);
     }
@@ -30,6 +38,9 @@ const debug = () => {
           value={password}
         />
         <button onClick={handleClick}>BCRYPT</button>
+      </div>
+      <div className="flex">
+        <button onClick={handleClick2}>Generate UUID</button>
       </div>
     </div>
   );

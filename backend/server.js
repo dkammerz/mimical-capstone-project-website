@@ -91,12 +91,19 @@ app.prepare().then(() => {
 
 // Debugging
 
-server.post('/debug', async (req, res) => {
+server.post('/debug-1', async (req, res) => {
     const password = req.body;
     console.log("this is the pw " + password.password)
 
     const valid = await bcrypt.hash(password.password, 12);
     console.log("this is the hashed pw " + valid);
+});
+
+server.post('/debug-2', async (req, res) => {
+    var temp_uuid = JSON.stringify(myuuid);
+    console.log("this is the uuid " + temp_uuid);
+    var short_uuid = temp_uuid.substring(1, 14);
+    console.log("this is the short uuid " + short_uuid);
 });
 
 
@@ -186,7 +193,6 @@ server.post("/api/check-patient-key-from-dashboard", (req, res) => {
 server.post("/api/add-patient", (req, res) => {
     let data = req.body;
     let therapitstID = req.user;
-    console.log(data.ID);
     var sql = 'UPDATE patients SET interests = ' + JSON.stringify(data.interestsSend) + ', diagnose = ' + JSON.stringify(data.diagnoseSend) + ', affectedSide = ' + JSON.stringify(data.affectedSideSend) + ', limitations = ' + JSON.stringify(data.motionSend) + ', numbness = ' + JSON.stringify(data.numbnessSend) + ', therapistID = ' + JSON.stringify(therapitstID[3]) + ' WHERE (ID = ' + JSON.stringify(data.ID) + ')';
     var query = db.query(sql, (err, results) => {
         if (err) throw err;
@@ -196,5 +202,16 @@ server.post("/api/add-patient", (req, res) => {
     var query = db.query(sql, (err, results) => {
         if (err) throw err;
     });
+    res.redirect('/');
+});
+
+server.post("/api/change-patient-data", (req, res) => {
+    let data = req.body;
+    let therapitstID = req.user;
+    var sql = 'UPDATE patients SET interests = ' + JSON.stringify(data.interestsSend) + ', diagnose = ' + JSON.stringify(data.diagnoseSend) + ', affectedSide = ' + JSON.stringify(data.affectedSideSend) + ', limitations = ' + JSON.stringify(data.motionSend) + ', numbness = ' + JSON.stringify(data.numbnessSend) + ', therapistID = ' + JSON.stringify(therapitstID[3]) + ' WHERE (ID = ' + JSON.stringify(data.ID) + ')';
+    var query = db.query(sql, (err, results) => {
+        if (err) throw err;
+    });
     res.redirect('/login');
+
 });
