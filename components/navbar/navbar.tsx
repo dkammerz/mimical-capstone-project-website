@@ -44,7 +44,7 @@ const navbar = () => {
           </Link>
 
           <ul className="flex  absolute right-0 mr-16 ">
-            <li className="pt-4 px-2">
+            {/* <li className="pt-4 px-2">
               <Link
                 href="/"
                 className={
@@ -56,8 +56,8 @@ const navbar = () => {
                 {" "}
                 Übersicht{" "}
               </Link>
-            </li>
-            <li className="pt-4 px-2">
+            </li> */}
+            {/* <li className="pt-4 px-2">
               <Link
                 href="/settings"
                 className={
@@ -69,7 +69,7 @@ const navbar = () => {
                 {" "}
                 Einstellungen{" "}
               </Link>
-            </li>
+            </li> */}
             <li className="pt-4 px-2">
               <Link
                 href="/login"

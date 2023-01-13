@@ -2,8 +2,9 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Axios from "axios";
-import PatientList from "../../components/patient-list/Patientlist";
+import PatientList from "../../components/patient-list-left-side/Patientlist";
 import PatientData from "../../components/patient-data/Patientdata";
+import Charts from "../../components/chartjs/charts";
 
 // Dynamic Patient Page
 
@@ -71,24 +72,17 @@ const index = () => {
           </div>
         </div>
         <div className="bg-black/10 rounded-lg m-5">
-          <div className="mx-5 font-bold">
-            ChartJS wird bald vervollständigt
+          {/* ChartJS Component */}
+          <div className="mx-5 mt-2 font-bold">
+            Patienteninfos:
+            <div>
+              <Charts />
+            </div>
           </div>
         </div>
       </div>
-
-      {/*  */}
     </div>
   );
 };
 
 export default index;
-
-// Functions
-function getDateHelper(a: number) {
-  if (a < 10) {
-    return "0" + a;
-  } else {
-    return a;
-  }
-}

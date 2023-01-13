@@ -213,5 +213,4 @@ server.post("/api/change-patient-data", (req, res) => {
         if (err) throw err;
     });
     res.redirect('/login');
-
 });

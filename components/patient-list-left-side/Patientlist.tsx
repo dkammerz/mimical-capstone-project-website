@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import axios from "axios"; // axios is a library that allows us to make HTTP requests
-import Popup from "../../components/patiet-list-popup/popup";
+import Popup from "../patiet-add-popup/popup";
 import "reactjs-popup/dist/index.css";
 
 const Patientlist = () => {

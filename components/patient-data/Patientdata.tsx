@@ -148,10 +148,10 @@ const index = () => {
               </div>
             ))
         )}
-        <div className="mt-5 absolute right-16  scss-syntax">
+        <div className="mt-4 pl-96 scss-syntax">
           <button
             onClick={() => setOpen(true)}
-            className="hover:underline font-light text-sm overflow-ellipsis"
+            className="hover:underline font-light text-sm"
           >
             Bearbeiten
           </button>
@@ -415,7 +415,7 @@ const index = () => {
                 onClick={changeData}
                 className="w-3/5 my-4  scss-syntax bg-white hover:bg-gray-200 border-black border-solid border-2 py-2 rounded-md transition duration-100 text-xs"
               >
-                Hinzufügen
+                Ändern
               </button>
             </div>
 
