@@ -214,3 +214,29 @@ server.post("/api/change-patient-data", (req, res) => {
     });
     res.redirect('/login');
 });
+
+server.post("/api/get-comments", (req, res) => {
+    let userID = req.body;
+    let sql = 'SELECT * FROM comments';
+    // WHERE patientID = ' + JSON.stringify(userID.index)
+
+    let query = db.query(sql, (err
+        , results) => {
+        if (err) throw err;
+        res.send(results);
+
+    });
+});
+
+server.post("/api/add-comment", (req, res) => {
+    var body = req.body;
+    var date = new Date();
+    date.setHours(date.getHours() + 2);
+
+    let sql = 'INSERT INTO comments (patientID, commentContent, commentTime) VALUES (' + JSON.stringify(body.index) + ', ' + JSON.stringify(body.comment) + ',' + JSON.stringify(date) + ')';
+    let query = db.query(sql, (err
+        , results) => {
+        if (err) throw err;
+        res.send(results);
+    });
+});
