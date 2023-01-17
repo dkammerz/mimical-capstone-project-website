@@ -96,6 +96,8 @@ const index = () => {
         numbnessSend: numbnessSend,
         motionSend: motionSend,
         ID: index,
+      }).then((res) => {
+        refreshPage();
       });
     } catch (error: any) {}
   };
@@ -490,4 +492,8 @@ function genderHelper(a: String) {
   } else {
     return "Divers";
   }
+}
+
+function refreshPage() {
+  window.location.reload();
 }

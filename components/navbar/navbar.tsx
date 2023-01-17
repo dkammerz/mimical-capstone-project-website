@@ -19,9 +19,9 @@ const navbar = () => {
   const currentlogin = router.pathname;
 
   const logout = () => {
-    axios.post("/api/logout");
-    // router.push("/login");
-    // refreshPage();
+    axios.post("/api/logout").then((res) => {
+      refreshPage();
+    });
   };
 
   function refreshPage() {

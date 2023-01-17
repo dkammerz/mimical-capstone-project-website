@@ -17,6 +17,7 @@ const index = () => {
   var [comment, setComment] = useState([]);
   var [addComment, setAddComment] = useState("");
   var [open, setOpen] = useState(false);
+  var [edit, setEdit] = useState(false);
 
   useEffect(() => {
     try {
@@ -44,6 +45,39 @@ const index = () => {
     try {
       Axios.post("/api/add-comment", {
         index: index,
+        comment: addComment,
+      })
+        .then((res) => {
+          console.log(res.data);
+          setComment(res.data);
+        })
+        .then(() => {
+          // setOpen(false);
+          refreshPage();
+        });
+    } catch (error: any) {
+      console.log("Es konnten keine Patienten geladen werden");
+    }
+  };
+
+  const deleteCommentHandler = (id: any) => {
+    try {
+      Axios.post("/api/delete-comment", {
+        index: index,
+        id: id,
+      }).then(() => {
+        refreshPage();
+      });
+    } catch (error: any) {
+      console.log("Es konnten keine Patienten geladen werden");
+    }
+  };
+
+  const editCommentHandler = (id: any) => {
+    try {
+      Axios.post("/api/edit-comment", {
+        index: index,
+        id: id,
         comment: addComment,
       }).then((res) => {
         console.log(res.data);
@@ -118,12 +152,13 @@ const index = () => {
             <div className="m-5 font-bold">Kommentare:</div>
             <div className="mt-5 scss-syntax">
               <button
-                onClick={() => setOpen(true)}
+                onClick={() => {
+                  setOpen(true);
+                }}
                 className="hover:underline font-light text-sm"
               >
                 Kommentar hinzufügen
               </button>
-              {/* HIER POPUP MACHEN DANN!!!! */}
               <Popup
                 open={open}
                 closeOnDocumentClick
@@ -169,8 +204,27 @@ const index = () => {
                     <div key={comment.ID} className="text-sm m-2 font-normal">
                       {comment.commentContent}
                       <div>
-                        <div className="text-xs font-thin">
-                          {dateTimeHelper(comment.commentTime)}
+                        <div className="flex">
+                          <div className="text-xs font-thin pr-2">
+                            {dateTimeHelper(comment.commentTime)}
+                          </div>
+                          {/* <button
+                            onClick={() => {
+                              setEdit(true);
+                            }}
+                            className="text-xs font-thin underline pr-2"
+                          >
+                            Bearbeiten
+                          </button> */}
+
+                          <button
+                            onClick={() =>
+                              deleteCommentHandler(comment.commentID)
+                            }
+                            className="text-xs font-thin underline pr-2"
+                          >
+                            Löschen
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -195,4 +249,8 @@ function dateTimeHelper(datetime: String) {
   var min = date.substring(14, 16);
   var sec = date.substring(17, 19);
   return day + "." + month + "." + year + " " + hour + ":" + min + ":" + sec;
+}
+
+function refreshPage() {
+  window.location.reload();
 }

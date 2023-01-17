@@ -240,3 +240,25 @@ server.post("/api/add-comment", (req, res) => {
         res.send(results);
     });
 });
+
+server.post("/api/delete-comment", (req, res) => {
+    var body = req.body;
+    let sql = 'DELETE FROM comments WHERE commentID = ' + JSON.stringify(body.id);
+    let query = db.query(sql
+        , (err, results) => {
+            if (err) throw err;
+            res.send(results);
+        }
+    );
+});
+
+server.post("/api/edit-comment", (req, res) => {
+    var body = req.body;
+    let sql = 'UPDATE comments SET commentContent = ' + JSON.stringify(body.comment) + ' WHERE commentID = ' + JSON.stringify(body.commentID);
+    let query = db.query
+        (sql, (err, results) => {
+            if (err) throw err;
+            res.send(results);
+        }
+        );
+});
