@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
+import Image from "next/image";
+import AppLogo from "../../public/mimical_logo.svg";
 
 // Usual navbar as learned in previous lessons
 // For CSS usualy I use TailwindCSS
@@ -34,14 +36,17 @@ const navbar = () => {
         style={{ backgroundColor: "#FFFFFF" }}
         className="w-full z-10 grid shadow-md justify-items-start ease-in duration-300"
       >
-        <div className="flex max-w-[1240px] justify-between items-center mb-2 text-black">
-          <Link href="/login">
-            {" "}
-            <h1 className="text-4xl pt-3 transtion ml-16 font-light duration-500 flex justify-center">
-              mimical
-              <span className="text-sm mt-8"> Dashboard</span>{" "}
-            </h1>{" "}
-          </Link>
+        <div className="flex max-w-[1240px] justify-between items-center text-black">
+          <div className="flex justify-around px-16 py-3">
+            <Image src={AppLogo} alt="AppLogo" width={50} height={50} />
+            <Link href="/login">
+              {" "}
+              <h1 className="text-4xl pt-3 transtion mx-5 font-normal duration-500 flex justify-center">
+                mimical
+                <span className="text-sm mt-8 font-light"> Dashboard</span>{" "}
+              </h1>{" "}
+            </Link>
+          </div>
 
           <ul className="flex  absolute right-0 mr-16 ">
             {/* <li className="pt-4 px-2">

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import axios from "axios"; // axios is a library that allows us to make HTTP requests
 import Popup from "../patiet-add-popup/popup";
 import "reactjs-popup/dist/index.css";
@@ -8,6 +9,9 @@ const Patientlist = () => {
   const [patients, setPatients] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [user, setUser] = useState([]);
+
+  const router = useRouter();
+  const currentRoute = router.pathname;
 
   // useEffect is a React hook that allows us to run code when the component is mounted
   // axios is used to make HTTP requests
@@ -77,7 +81,7 @@ const Patientlist = () => {
                         <Link key={patient.ID} href={"/patients/" + patient.ID}>
                           <div
                             className="text-center
-                           bg-white m-1 rounded-lg"
+                           custom-blue m-1 rounded-lg text-white"
                           >
                             {patient.prename + " " + patient.name}
                           </div>

@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Popup from "reactjs-popup";
-import ProfilePic from "../../public/ProfilePic.png";
+import ProPic from "../../public/istockphoto-1223671392-612x612.jpg";
 
 const index = () => {
   var router = useRouter();
@@ -103,57 +103,61 @@ const index = () => {
   };
 
   return (
-    <div className="m-5 bg-black/10 rounded-lg">
-      <div className="m-4 flex">
-        <Image
-          className="my-2 rounded-lg"
-          src={ProfilePic}
-          alt={"ProfilePic"}
-          width={150}
-          height={150}
-        />
-        {typeof patients === "undefined" ? (
-          <div>loading...</div>
-        ) : (
-          patients
-            .filter((patient: any) => patient.ID == index)
-            .map((patient: any) => (
-              <div
-                key={patient.ID}
-                className="m-5 grid grid-rows-6 grid-flow-col gap-y-0.5 gap-x-3"
-              >
-                <div className="text-sm">
-                  Name: {patient.prename} {patient.name}
-                </div>
-                <div className="text-sm">Patienten ID: {patient.ID}</div>
-                <div className="text-sm">
-                  Geschlecht: {genderChecker(patient.gender)}
-                </div>
-                <div className="text-sm">
-                  Geburtsdatum : {getBirthdate(patient.birthdate)}
-                </div>
-                <div className="text-sm">
-                  Taubheitsgefühl?: {patient.numbness}
-                </div>
-                <div className="text-sm">Diagnose: {patient.diagnose}</div>
+    <div className="m-5 rounded-lg flex justify-between">
+      <div>
+        <div className="m-4 flex">
+          <Image
+            className="my-2 rounded-lg"
+            src={ProPic}
+            alt={"ProPic"}
+            width={150}
+            height={150}
+          />
+          {typeof patients === "undefined" ? (
+            <div>loading...</div>
+          ) : (
+            patients
+              .filter((patient: any) => patient.ID == index)
+              .map((patient: any) => (
+                <div
+                  key={patient.ID}
+                  className="m-5 grid grid-rows-6 grid-flow-col gap-y-0.5 gap-x-3"
+                >
+                  <div className="text-sm">
+                    Name: {patient.prename} {patient.name}
+                  </div>
+                  <div className="text-sm">Patienten ID: {patient.ID}</div>
+                  <div className="text-sm">
+                    Geschlecht: {genderChecker(patient.gender)}
+                  </div>
+                  <div className="text-sm">
+                    Geburtsdatum : {getBirthdate(patient.birthdate)}
+                  </div>
+                  <div className="text-sm">
+                    Taubheitsgefühl?: {patient.numbness}
+                  </div>
+                  <div className="text-sm">Diagnose: {patient.diagnose}</div>
 
-                <div className="text-sm">Email: {patient.email}</div>
-                <div className="text-sm"></div>
-                <div className="text-sm"></div>
-                <div className="text-sm">
-                  Alter: {getAge(patient.birthdate)}
+                  <div className="text-sm">Email: {patient.email}</div>
+                  <div className="text-sm"></div>
+                  <div className="text-sm"></div>
+                  <div className="text-sm">
+                    Alter: {getAge(patient.birthdate)}
+                  </div>
+                  <div className="text-sm">
+                    Betroffene Seite: {patient.affectedSide}
+                  </div>
+                  <div className="text-sm"></div>
                 </div>
-                <div className="text-sm">
-                  Betroffene Seite: {patient.affectedSide}
-                </div>
-                <div className="text-sm"></div>
-              </div>
-            ))
-        )}
-        <div className="mt-4 pl-96 scss-syntax">
+              ))
+          )}
+        </div>
+      </div>
+      <div>
+        <div className="mt-4 scss-syntax">
           <button
             onClick={() => setOpen(true)}
-            className="hover:underline font-light text-sm"
+            className="hover:underline font-light custom-blue-text text-sm"
           >
             Bearbeiten
           </button>

@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState, useEffect, use } from "react";
 import { useRouter } from "next/router";
+import Image from "next/image";
+import AppLogo from "../../public/mimical_logo.svg";
 
 // The login page captures the user's email and password and will be send to the backend in future sprints
 
@@ -34,18 +36,14 @@ export default function Login() {
   };
 
   return (
-    <div
-      className="min-h-screen bg-no-repeat bg-center"
-      style={{
-        background:
-          "url('https://images.unsplash.com/photo-1486520299386-6d106b22014b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80')",
-        backgroundSize: "cover",
-      }}
-    >
-      <div className="flex justify-end scss-syntax">
-        <div className="bg-white min-h-screen w-1/2 flex justify-center items-center">
+    <div className="bg-white">
+      <div className="flex justify-center scss-syntax">
+        <div className="bg- min-h-screen w-1/2 flex justify-center items-center">
           <div>
             <form>
+              <div className="flex justify-center pb-10">
+                <Image src={AppLogo} alt="AppLogo" />
+              </div>
               <div>
                 <span className="text-sm">
                   Willkomen Zurück bei{" "}
@@ -90,7 +88,7 @@ export default function Login() {
               <button
                 type="submit"
                 onClick={handleLogin}
-                className="mt-4 mb-3 w-full bg-white hover:bg-gray-200 font-light border-solid border-2 border-black py-2 rounded-md transition duration-100"
+                className="mt-4 mb-3 w-full custom-blue text-white font-light border-solid py-2 rounded-md transition duration-100"
               >
                 Einloggen
               </button>
