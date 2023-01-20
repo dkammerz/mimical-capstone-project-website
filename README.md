@@ -1,4 +1,4 @@
-# Team-08 – Mimical Readme File
+Mimical Readme File
 
 ## Mimical | Emotions and facial expressions in everyday life | (Mimical for short)
 
