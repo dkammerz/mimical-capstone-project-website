@@ -56,7 +56,7 @@ const popup = () => {
     <div>
       <button
         onClick={() => setOpen(true)}
-        className="w-full px-4 mb-4 bg-white hover:bg-gray-200 border-black border-solid border-2 py-2 rounded-md transition duration-100 text-xs"
+        className="w-full px-4 mb-4 custom-blue text-white py-2 rounded-md transition duration-100 text-xs"
       >
         Neuen Patienten Hinzufügen
       </button>
@@ -89,7 +89,7 @@ const popup = () => {
           ></input>
           <button
             onClick={sendPatientkey}
-            className="w-3/5 mb-4 scss-syntax bg-white hover:bg-gray-200 border-black border-solid border-2 py-2 rounded-md transition duration-100 text-xs"
+            className="w-3/5 mb-4 custom-blue text-white py-2 rounded-md transition duration-100 text-xs"
           >
             Hinzufügen
           </button>
@@ -269,7 +269,7 @@ const popup = () => {
         >
           <button
             onClick={addPatient}
-            className="w-3/5 my-4  scss-syntax bg-white hover:bg-gray-200 border-black border-solid border-2 py-2 rounded-md transition duration-100 text-xs"
+            className="w-3/5 my-4 text-white custom-blue py-2 rounded-md transition duration-100 text-xs"
           >
             Hinzufügen
           </button>

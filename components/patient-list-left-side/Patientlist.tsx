@@ -118,7 +118,7 @@ const Patientlist = () => {
                         <Link key={patient.ID} href={"/patients/" + patient.ID}>
                           <div
                             className="text-center
-                           bg-white m-1 rounded-lg"
+                            custom-blue m-1 rounded-lg text-white"
                           >
                             {patient.prename + " " + patient.name}
                           </div>

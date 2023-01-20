@@ -22,6 +22,8 @@ const handle = app.getRequestHandler();
 
 // Generate random ID
 const { v4: uuidv4 } = require('uuid');
+const { arrayBuffer } = require('stream/consumers');
+const { appendFile } = require('fs');
 let myuuid = uuidv4();
 
 // Create connection to server
@@ -164,8 +166,10 @@ server.post("/api/check-patient-key-from-dashboard", (req, res) => {
     function getDateHelper(a) {
         if (a < 10) {
             return "0" + a;
-        } else {
+        } else if (a > 10 && a < 100) {
             return a;
+        } else {
+            return "Invalid argument";
         }
     }
 
@@ -261,4 +265,36 @@ server.post("/api/edit-comment", (req, res) => {
             res.send(results);
         }
         );
+});
+
+server.post("/api/get-chart-data", (req, res) => {
+    let userID = req.body;
+    let ID = userID.index;
+    let Informations = {};
+    Informations
+    let sql = 'SELECT * FROM `patient-progress` WHERE patientID = ' + ID;
+    let query = db.query(sql
+        , (err, results) => {
+            if (err) throw err;
+            let months = {};
+
+            months = [];
+            for (var i = 0; i <= 12; i++) {
+                months[i] = [];
+            }
+            months[12].push(Object.values(results[0])[1]);
+            months[13] = []
+            months[13].push(Object.values(results[0])[2]);
+
+            for (let date = 3; date < 67; date++) {
+                if (Object.values(results[0])[date] === null) continue;
+                let month = Object.values(results[0])[date].getMonth();
+                if (!months[month]) {
+                    months[month] = [];
+                }
+                months[month].push(date);
+            }
+            res.send(months);
+        }
+    );
 });

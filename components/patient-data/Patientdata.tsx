@@ -419,7 +419,7 @@ const index = () => {
             >
               <button
                 onClick={changeData}
-                className="w-3/5 my-4  scss-syntax bg-white hover:bg-gray-200 border-black border-solid border-2 py-2 rounded-md transition duration-100 text-xs"
+                className="w-3/5 my-4  custom-blue text-white py-2 rounded-md transition duration-100 text-xs"
               >
                 Ändern
               </button>

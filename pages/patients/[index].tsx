@@ -142,7 +142,7 @@ const index = () => {
                 </div>
                 <button
                   onClick={addCommentHandler}
-                  className="mt-4 mb-3 px-2 bg-white hover:bg-gray-200 font-light border-solid border-2 border-black py-2 rounded-md transition duration-100 scss-syntax"
+                  className="mt-4 mb-3 px-2 text-white custom-blue py-2 rounded-md transition duration-100 scss-syntax"
                 >
                   Kommentar hinzufügen
                 </button>

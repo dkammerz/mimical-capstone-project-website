@@ -6,14 +6,12 @@ import Axios from "axios";
 const comment = () => {
   var [comments, setComments] = useState([]);
   var [addComment, setAddComment] = useState("");
-  var [open, setOpen] = useState(false);
-  var [edit, setEdit] = useState(false);
-
   var router = useRouter();
   var index = router.query.index;
 
   useEffect(() => {
-    if (!router.isReady) return;
+    if (!router.isReady) return; // wait for router to be ready
+    // Send a request to the server to get the comments
     try {
       Axios.post("/api/get-comments", { index: index }).then((res) => {
         console.log(res.data);
@@ -67,15 +65,6 @@ const comment = () => {
                   <div className="text-xs font-thin pr-2">
                     {dateTimeHelper(comment.commentTime)}
                   </div>
-                  {/* <button
-                            onClick={() => {
-                              setEdit(true);
-                            }}
-                            className="text-xs font-thin underline pr-2"
-                          >
-                            Bearbeiten
-                          </button> */}
-
                   <button
                     onClick={() => deleteCommentHandler(comment.commentID)}
                     className="text-xs font-thin underline pr-2"
