@@ -28,7 +28,9 @@ const charts = () => {
   var index = router.query.index;
 
   useEffect(() => {
+    // We need to check if the router is ready before we can access the query
     if (!router) return;
+    // We need to check if the query is ready before we can access the index
     if (!index) return;
     getCharts(index);
   }, [router, index]);
@@ -38,10 +40,7 @@ const charts = () => {
       await Axios.post("/api/get-chart-data", {
         index: index,
       }).then((response) => {
-        console.log(response.data);
-        // console.log(response.data[upperCount]);
         setJanuary(response.data[0]);
-
         setFebruary(response.data[1]);
         setMarch(response.data[2]);
         setApril(response.data[3]);
@@ -55,7 +54,6 @@ const charts = () => {
         setDecember(response.data[11]);
         setUpper(response.data[12]);
         setLower(response.data[13]);
-        // console.log(response.data);
       });
     } catch (error: any) {
       error;
@@ -66,7 +64,7 @@ const charts = () => {
     <div className="overflow-x-scroll">
       <div className="flex justify-around">
         <div className="m-3">
-          <h2>Wie oft werden übungen gemacht</h2>
+          <h2 className="pb-5">Wie oft werden übungen gemacht</h2>
           <Line
             data={{
               labels: [
@@ -113,19 +111,24 @@ const charts = () => {
           />
         </div>
         <div className="m-3">
-          <h2>Welche Übungen</h2>
+          <h2 className="pb-5">Welche Übungen werden vermehrt gemacht</h2>
           <Bar
             data={{
-              labels: ["Obere Gesichtshälfte", "Untere Gesichtshälfte"],
+              labels: ["Übungen"],
               datasets: [
                 {
-                  backgroundColor: [
-                    "rgba(0,122,255,0.5)",
-                    "rgba(52,199,89,0.5)",
-                  ],
-                  borderColor: ["rgba(0,122,255)", "rgba(52,199,89)"],
+                  label: "Obere Gesichtshälfte",
+                  backgroundColor: ["rgba(0,122,255,0.5)"],
+                  borderColor: "rgba(0,122,255)",
                   borderWidth: 2,
-                  data: [upper[0], lower[0]],
+                  data: [upper[0]],
+                },
+                {
+                  label: "Untere Gesichtshälfte",
+                  backgroundColor: ["rgba(52,199,89,0.5)"],
+                  borderColor: "rgba(52,199,89)",
+                  borderWidth: 2,
+                  data: [lower[0]],
                 },
               ],
             }}

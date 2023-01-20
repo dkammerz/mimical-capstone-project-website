@@ -5,7 +5,6 @@ import Axios from "axios";
 
 const comment = () => {
   var [comments, setComments] = useState([]);
-  var [addComment, setAddComment] = useState("");
   var router = useRouter();
   var index = router.query.index;
 
@@ -14,7 +13,6 @@ const comment = () => {
     // Send a request to the server to get the comments
     try {
       Axios.post("/api/get-comments", { index: index }).then((res) => {
-        console.log(res.data);
         setComments(res.data);
       });
     } catch (error: any) {
@@ -29,21 +27,6 @@ const comment = () => {
         id: id,
       }).then(() => {
         refreshPage();
-      });
-    } catch (error: any) {
-      console.log("Es konnten keine Patienten geladen werden");
-    }
-  };
-
-  const editCommentHandler = (id: any) => {
-    try {
-      Axios.post("/api/edit-comment", {
-        index: index,
-        id: id,
-        comment: addComment,
-      }).then((res) => {
-        console.log(res.data);
-        setComments(res.data);
       });
     } catch (error: any) {
       console.log("Es konnten keine Patienten geladen werden");
@@ -95,6 +78,16 @@ const dateTimeHelper = (date: any) => {
   var minute = today.getMinutes();
   var second = today.getSeconds();
   var time =
-    day + "." + month + "." + year + " " + hour + ":" + minute + ":" + second;
+    (day < 10 ? "0" + day : day) +
+    "." +
+    (month < 10 ? "0" + month : month) +
+    "." +
+    year +
+    " " +
+    (hour < 10 ? "0" + hour : hour) +
+    ":" +
+    (minute < 10 ? "0" + minute : minute) +
+    ":" +
+    (second < 10 ? "0" + second : second);
   return time;
 };

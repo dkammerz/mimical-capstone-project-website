@@ -3,6 +3,10 @@ const bcrypt = require('bcrypt');
 const localStrategy = require('passport-local').Strategy;
 
 module.exports = function (passport) {
+    // This is the function that is called when the user tries to log in
+    // It checks if the user exists in the database and if the password is correct
+    // If the user exists and the password is correct, it returns the user object
+    // If the user does not exist or the password is wrong, it returns false
     passport.use(
         new localStrategy((username, password, done) => {
             const query = 'SELECT * FROM therapist WHERE email = ' + JSON.stringify(username);
@@ -28,10 +32,14 @@ module.exports = function (passport) {
             })
         })
     );
+    // The user object is then stored in the session
+    // This function is called when the user is logged in
     passport.serializeUser((user, done) => {
         done(null, user.ID);
     });
 
+    // This function is called when the user is logged out
+    // It removes the user object from the session
     passport.deserializeUser((id, done) => {
         const query = 'SELECT * FROM therapist WHERE ID = ' + id;
         db.query(query, [id], (err, results) => {

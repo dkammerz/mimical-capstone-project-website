@@ -34,11 +34,12 @@ const index = () => {
         setPatients(res.data);
       });
     } catch (error: any) {
-      console.log("Es konnten keine Patienten geladen werden");
+      error;
     }
   }, []);
 
-  const data = () => {
+  // Checks if the therapist changed data of a patient
+  const isDataChanged = () => {
     if (diagnoseChanged) {
       diagnoseSend = diagnose;
     } else {
@@ -86,7 +87,7 @@ const index = () => {
   };
 
   const changeData = async () => {
-    data();
+    isDataChanged();
 
     try {
       await Axios.post("/api/change-patient-data", {
@@ -99,13 +100,16 @@ const index = () => {
       }).then((res) => {
         refreshPage();
       });
-    } catch (error: any) {}
+    } catch (error: any) {
+      error;
+    }
   };
 
   return (
     <div className="m-5 rounded-lg flex justify-between">
       <div>
         <div className="m-4 flex">
+          {/* Generic Profile Picture for now */}
           <Image
             className="my-2 rounded-lg"
             src={ProPic}
@@ -113,6 +117,7 @@ const index = () => {
             width={150}
             height={150}
           />
+          {/* Mapping patient data in a grid */}
           {typeof patients === "undefined" ? (
             <div>loading...</div>
           ) : (
@@ -162,6 +167,7 @@ const index = () => {
             Bearbeiten
           </button>
 
+          {/* Modal for editing patient data */}
           <Popup
             open={open}
             closeOnDocumentClick

@@ -22,8 +22,6 @@ const handle = app.getRequestHandler();
 
 // Generate random ID
 const { v4: uuidv4 } = require('uuid');
-const { arrayBuffer } = require('stream/consumers');
-const { appendFile } = require('fs');
 let myuuid = uuidv4();
 
 // Create connection to server
@@ -56,6 +54,7 @@ server.use(expressSession({
     saveUninitialized: false,
     httpOnly: true,
     store: sessionStore,
+    // cookie is set to expire in 1 hour
     cookie: { maxAge: 3600000 }
 }))
 
@@ -92,7 +91,6 @@ app.prepare().then(() => {
 // Databse Routes
 
 // Debugging
-
 server.post('/debug-1', async (req, res) => {
     const password = req.body;
     console.log("this is the pw " + password.password)
@@ -121,7 +119,6 @@ server.post("/api/login", (req, res, next) => {
             res.send(true);
         }
         req.login(user, err => {
-            // cookie.set('loggedin', user);
             res.send(false);
         })
     })

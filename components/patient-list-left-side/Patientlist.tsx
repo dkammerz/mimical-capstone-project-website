@@ -58,6 +58,7 @@ const Patientlist = () => {
           <div className="mx-4">
             <Popup />
           </div>
+          {/* Searchbar */}
           <input
             className="bg-black/10 mb-2 py-2 w-4/5 rounded-lg text-center
             "
@@ -143,38 +144,4 @@ function isSearch(a: any) {
   } else {
     return false;
   }
-}
-
-const sleep = (milliseconds: number) => {
-  return new Promise((resolve) => setTimeout(resolve, milliseconds));
-};
-
-function genderHelper(a: String) {
-  if (a === "m") {
-    return "Männlich";
-  } else if (a === "w") {
-    return "Weiblich";
-  } else {
-    return "Divers";
-  }
-}
-
-function getBirthdate(a: Date) {
-  var date = new Date(a);
-  var day = getDateHelper(date.getDate());
-  var month = getDateHelper(date.getMonth() + 1);
-  var year = date.getFullYear();
-  return day + "." + month + "." + year;
-}
-
-function getDateHelper(a: number) {
-  if (a < 10) {
-    return "0" + a;
-  } else {
-    return a;
-  }
-}
-
-function refreshPage() {
-  window.location.reload();
 }

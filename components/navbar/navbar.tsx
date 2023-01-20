@@ -49,32 +49,6 @@ const navbar = () => {
           </div>
 
           <ul className="flex  absolute right-0 mr-16 ">
-            {/* <li className="pt-4 px-2">
-              <Link
-                href="/"
-                className={
-                  currentRoute === "/"
-                    ? "pl-2 pr-2 text-sm transition font-light duration-500 scale-125 underline focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex justify-center rounded-full"
-                    : "pl-2 pr-2 text-sm transition font-light duration-500 hover:scale-125 hover:underline focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex justify-center rounded-full"
-                }
-              >
-                {" "}
-                Übersicht{" "}
-              </Link>
-            </li> */}
-            {/* <li className="pt-4 px-2">
-              <Link
-                href="/settings"
-                className={
-                  currentRoute === "/settings"
-                    ? "pl-2 pr-2 text-sm transition font-light duration-500 scale-125 underline focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex justify-center rounded-full"
-                    : "pl-2 pr-2 text-sm transition font-light duration-500 hover:scale-125 hover:underline focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex justify-center rounded-full"
-                }
-              >
-                {" "}
-                Einstellungen{" "}
-              </Link>
-            </li> */}
             <li className="pt-4 px-2">
               <Link
                 href="/login"

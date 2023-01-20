@@ -1,8 +1,8 @@
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode } from "react";
 import Navbar from "./navbar/navbar";
-import { useRouter } from "next/router";
-import axios from "axios";
 import Head from "next/head";
+import Favicon from "../public/mimical_logo.ico";
+import Link from "next/link";
 
 type Props = {
   children: ReactNode;
