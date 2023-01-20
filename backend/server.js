@@ -279,6 +279,8 @@ server.post("/api/get-chart-data", (req, res) => {
             for (var i = 0; i <= 12; i++) {
                 months[i] = [];
             }
+
+            months[12] = []
             months[12].push(Object.values(results[0])[1]);
             months[13] = []
             months[13].push(Object.values(results[0])[2]);
